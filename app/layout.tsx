@@ -5,9 +5,9 @@ import Footer from "@/components/sections/Footer";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
-  title: "Sharear Ahammed Nihal | Front-End Developer",
+  title: "Sharear Ahammed Nihal | Full Stack Developer",
   description:
-    "Portfolio of Sharear Ahammed Nihal – Front-End Web Developer specializing in React, Next.js and modern web technologies.",
+    "Portfolio of Sharear Ahammed Nihal – Full Stack Developer specializing in React, Next.js, and modern web technologies.",
   keywords: [
     "React",
     "Next.js",
@@ -19,6 +19,11 @@ export const metadata: Metadata = {
     "Portfolio",
   ],
   authors: [{ name: "Sharear Ahammed Nihal" }],
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

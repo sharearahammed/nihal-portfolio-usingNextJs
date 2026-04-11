@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { personalInfo } from "@/lib/data";
+import Image from "next/image";
 
 const links = [
   { label: "Home", href: "/" },
@@ -35,19 +36,15 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="font-display text-lg font-800 tracking-tight">
-          <span
-            className="text-white font-bold"
-            style={{ fontFamily: "Syne, sans-serif", fontWeight: 800 }}
-          >
-            S.A.
-          </span>
-          <span
-            className="text-[#F97316] font-bold"
-            style={{ fontFamily: "Syne, sans-serif", fontWeight: 800 }}
-          >
-            NIHAL
-          </span>
+        <Link href="/" className="font-display tracking-tight">
+          <Image
+            src="/sa_nihal_logo.svg"
+            alt="S.A. Nihal Logo"
+            width={200}
+            height={90}
+            className="w-32 h-auto sm:w-40 md:w-48"
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}
