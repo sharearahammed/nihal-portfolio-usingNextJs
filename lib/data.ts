@@ -23,8 +23,8 @@ export const personalInfo = {
 export const stats = [
   { label: "Years Experience", value: "1+", icon: "🎯" },
   { label: "Projects Built", value: "6+", icon: "🚀" },
-  { label: "Technologies", value: "10+", icon: "💻" },
-  { label: "Happy Clients", value: "50+", icon: "😊" },
+  { label: "Technologies", value: "12+", icon: "💻" },
+  { label: "Happy Clients", value: "10+", icon: "😊" },
 ];
 
 export const skillSections = [
