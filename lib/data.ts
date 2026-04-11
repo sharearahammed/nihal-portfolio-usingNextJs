@@ -3,29 +3,26 @@ export const personalInfo = {
   shortName: "S.A. Nihal",
   role: "Front-End Web Developer",
   taglines: [
-    "Software Engineer",
-    "Full Stack Developer",
-    "MERN Stack Developer", 
-    "Backend Developer",
     "Front-End Developer",
     "React Specialist",
     "Next.js Developer",
     "UI Craftsman",
   ],
-  bio: "A passionate Front-End Web Developer with 1+ year of professional experience at Fly Far International. I craft beautiful, responsive web experiences using React, Next.js & modern web tech.",
+  bio: "A passionate Front-End Web Developer with 1+ year of professional experience at Fly Far Tech. I craft beautiful, responsive web experiences using React, Next.js & modern web tech.",
   location: "Gazipur, Dhaka, Bangladesh",
   phone: "+880 1876523323",
   email: "sharearahammed@gmail.com",
   github: "https://github.com/sharearahammed",
-  linkedin: "https://www.linkedin.com/in/sharear-ahammed-nihal-27899b354",
+  linkedin: "https://www.linkedin.com/in/sharear-ahammed-nihal",
   facebook: "https://www.facebook.com/Sharear.Ahammed.10",
   education: "B.Sc. in CSE from AIUB",
-  experience: "1+ Year at Fly Far International",
+  experience: "1+ Year at Fly Far Tech",
+  cvUrl: "/CV of Sharear Ahammed Nihal.pdf",
 };
 
 export const stats = [
   { label: "Years Experience", value: "1+", icon: "🎯" },
-  { label: "Projects Built", value: "5+", icon: "🚀" },
+  { label: "Projects Built", value: "6+", icon: "🚀" },
   { label: "Technologies", value: "10+", icon: "💻" },
   { label: "Happy Clients", value: "50+", icon: "😊" },
 ];
@@ -80,6 +77,40 @@ export const skillSections = [
 export const projects = [
   {
     id: 1,
+    title: "Skill Bridge",
+    slug: "skill-bridge",
+    category: "Full Stack",
+    img: "/skillbridge1.jpg",
+    images: [
+      "/skillbridge1.jpg",
+      "/skillbridge2.jpg",
+      "/skillbridge3.jpg",
+      "/skillbridge4.jpg",
+      "/skillbridge5.jpg",
+    ],
+    description:
+      "Full-stack scalable tutor booking platform with role-based access, JWT & Google OAuth auth, SSR/SSG with Next.js, Prisma ORM and PostgreSQL.",
+    longDescription:
+      "A full-stack and scalable tutor booking platform built with Next.js and TypeScript, focusing on security, performance, and clean architecture. The application supports role-based access control, secure authentication flows, and a seamless booking experience for students and tutors. Features include role-based system for Student, Tutor & Admin with dedicated dashboards, secure authentication with JWT, Google OAuth & OTP-based password recovery, server-side rendering and static generation with Next.js, type-safe codebase with TypeScript and Prisma ORM, relational database management with PostgreSQL, and RESTful API development with Node.js & Express.js.",
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "Express",
+      "Prisma",
+      "PostgreSQL",
+      "JWT",
+      "Google OAuth",
+    ],
+    liveUrl: "https://skill-bridge-frontend-uk5b.onrender.com",
+    githubUrl: "https://github.com/sharearahammed/skill-bridge-frontend",
+    githubServerUrl: "https://github.com/sharearahammed/skill-bridge-backend",
+    backendUrl: "https://skill-bridge-backend-fprg.onrender.com",
+    featured: true,
+    color: "#6366F1",
+  },
+  {
+    id: 2,
     title: "Fly Far International",
     slug: "fly-far-international",
     category: "Professional",
@@ -96,7 +127,7 @@ export const projects = [
     color: "#F97316",
   },
   {
-    id: 2,
+    id: 3,
     title: "Micro Task & Earning",
     slug: "micro-task-earning",
     category: "Full Stack",
@@ -110,7 +141,7 @@ export const projects = [
     description:
       "Crowdsourcing platform where task creators post micro-tasks and workers earn rewards. Features role-based dashboards for Admin, Task Creator, and Worker.",
     longDescription:
-      "A complete crowdsourcing platform with three distinct user roles. Admin manages users and tasks globally. Task Creators post tasks and manage payments. Workers browse, submit, and earn coins. Includes Stripe payment integration, JWT authentication, and real-time notifications.",
+      "A complete crowdsourcing platform with three distinct user roles. Admin manages users and tasks globally. Task Creators post tasks and manage payments. Workers browse, submit, and earn coins. Includes Stripe payment integration, JWT authentication, and real-time notifications. For Testing: email: sharearahammed@gmail.com | pass: Nihal@12",
     stack: [
       "React JS",
       "Firebase",
@@ -119,13 +150,15 @@ export const projects = [
       "Node.js",
       "JWT",
     ],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://mega-earning.netlify.app",
+    githubUrl: "https://github.com/sharearahammed/mega-earning-client.git",
+    githubServerUrl:
+      "https://github.com/sharearahammed/mega-earning-server.git",
     featured: true,
     color: "#A855F7",
   },
   {
-    id: 3,
+    id: 4,
     title: "Hotel Room Booking",
     slug: "hotel-room-booking",
     category: "Full Stack",
@@ -139,15 +172,16 @@ export const projects = [
     description:
       "Full-stack hotel booking app with room browsing, secure booking, review system, and booking management. Firebase auth + MongoDB backend.",
     longDescription:
-      "A hotel booking web application with secure room browsing, date-based availability, booking management, and a review system. Users can browse rooms by type, check availability, make bookings, and manage their reservations. JWT-protected backend API with MongoDB storage.",
+      "A responsive and user-friendly hotel booking platform. It features secure user authentication with JWT, seamless Stripe payment integration, and automated email notifications. Users can book, update, review, and cancel reservations with ease. Built with React JS, MongoDB, Firebase, Tailwind CSS, and NodeJS.",
     stack: ["React JS", "Firebase", "MongoDB", "Tailwind CSS", "Node.js"],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://sunshinecity-hotelbooking.netlify.app",
+    githubUrl: "https://github.com/sharearahammed/hotel-booking-client.git",
+    githubServerUrl: "https://github.com/sharearahammed/hotel-booking-server",
     featured: false,
     color: "#22C55E",
   },
   {
-    id: 4,
+    id: 5,
     title: "Tourism Management",
     slug: "tourism-management",
     category: "Full Stack",
@@ -156,15 +190,18 @@ export const projects = [
     description:
       "Tourist information & destination guide for Southeast Asia. Features destination cards, tour packages, and guide profiles.",
     longDescription:
-      "A tourism management web app that allows users to explore tourist destinations in Southeast Asia. Features include destination listings, tour package management, tourist guide profiles, and trip planning. Full CRUD operations with Firebase auth and MongoDB.",
+      "A responsive and user-friendly platform providing detailed information on tourist destinations across Southeast Asia, including Bangladesh, Thailand, Indonesia, Malaysia, and Vietnam. Features include emergency contact information, healthcare facilities, safety tips, and the ability to add and update tourist spots.",
     stack: ["React JS", "Firebase", "MongoDB", "Tailwind CSS", "Node.js"],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://roamazing-tourism-management.netlify.app",
+    githubUrl:
+      "https://github.com/sharearahammed/tourism-management-client.git",
+    githubServerUrl:
+      "https://github.com/sharearahammed/tourism-management-server",
     featured: false,
     color: "#06B6D4",
   },
   {
-    id: 5,
+    id: 6,
     title: "Flight Search Box Clone",
     slug: "flight-search-clone",
     category: "Frontend",

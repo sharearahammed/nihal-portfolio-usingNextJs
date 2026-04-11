@@ -10,13 +10,20 @@ import { projects } from "@/lib/data";
 
 export default function ProjectDetailPage() {
   const { id } = useParams();
-  const project = projects.find((p) => p.id === Number(id));
+  const project = projects.find((p) => p.id === Number(id)) as
+    | (typeof projects)[0] & {
+        githubServerUrl?: string;
+        backendUrl?: string;
+      };
 
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center text-center pt-24">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-4" style={{ fontFamily: "Syne, sans-serif" }}>
+          <h1
+            className="text-4xl font-bold text-white mb-4"
+            style={{ fontFamily: "Syne, sans-serif" }}
+          >
             Project Not Found
           </h1>
           <Link href="/projects" className="btn-brand">
@@ -28,6 +35,9 @@ export default function ProjectDetailPage() {
   }
 
   const others = projects.filter((p) => p.id !== project.id).slice(0, 2);
+
+  const hasFrontendAndBackend =
+    project.liveUrl !== "#" && project.backendUrl;
 
   return (
     <div className="pt-24 pb-24">
@@ -48,7 +58,11 @@ export default function ProjectDetailPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="relative w-full rounded-2xl overflow-hidden mb-12"
-          style={{ height: 480, background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}
+          style={{
+            height: 480,
+            background: "#111",
+            border: "1px solid rgba(255,255,255,0.06)",
+          }}
         >
           <Image
             src={project.img}
@@ -59,7 +73,9 @@ export default function ProjectDetailPage() {
           />
           <div
             className="absolute inset-0 pointer-events-none"
-            style={{ background: `linear-gradient(135deg, ${project.color}22 0%, transparent 50%)` }}
+            style={{
+              background: `linear-gradient(135deg, ${project.color}22 0%, transparent 50%)`,
+            }}
           />
         </motion.div>
 
@@ -108,7 +124,11 @@ export default function ProjectDetailPage() {
                       <div
                         key={i}
                         className="relative rounded-xl overflow-hidden"
-                        style={{ height: 200, background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}
+                        style={{
+                          height: 200,
+                          background: "#111",
+                          border: "1px solid rgba(255,255,255,0.06)",
+                        }}
                       >
                         <Image
                           src={img}
@@ -133,7 +153,10 @@ export default function ProjectDetailPage() {
             {/* Tech stack */}
             <div
               className="p-6 rounded-xl mb-6"
-              style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}
+              style={{
+                background: "#111",
+                border: "1px solid rgba(255,255,255,0.06)",
+              }}
             >
               <h3
                 className="text-sm font-bold text-white mb-4"
@@ -143,7 +166,9 @@ export default function ProjectDetailPage() {
               </h3>
               <div className="flex flex-wrap gap-2">
                 {project.stack.map((tech) => (
-                  <span key={tech} className="tag">{tech}</span>
+                  <span key={tech} className="tag">
+                    {tech}
+                  </span>
                 ))}
               </div>
             </div>
@@ -151,7 +176,10 @@ export default function ProjectDetailPage() {
             {/* Links */}
             <div
               className="p-6 rounded-xl mb-6"
-              style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}
+              style={{
+                background: "#111",
+                border: "1px solid rgba(255,255,255,0.06)",
+              }}
             >
               <h3
                 className="text-sm font-bold text-white mb-4"
@@ -160,22 +188,60 @@ export default function ProjectDetailPage() {
                 Project Links
               </h3>
               <div className="flex flex-col gap-3">
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-brand text-sm py-2.5 justify-center"
-                >
-                  <HiExternalLink /> Live Demo
-                </a>
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-outline text-sm py-2.5 justify-center"
-                >
-                  <FaGithub /> Source Code
-                </a>
+
+                {/* Live Links */}
+                {hasFrontendAndBackend ? (
+                  <>
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-brand text-sm py-2.5 justify-center"
+                    >
+                      <HiExternalLink /> Frontend Live
+                    </a>
+                    <a
+                      href={project.backendUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-brand text-sm py-2.5 justify-center"
+                    >
+                      <HiExternalLink /> Backend Live
+                    </a>
+                  </>
+                ) : project.liveUrl !== "#" ? (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-brand text-sm py-2.5 justify-center"
+                  >
+                    <HiExternalLink /> Live Link
+                  </a>
+                ) : null}
+
+                {/* GitHub Links */}
+                {project.githubUrl !== "#" && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline text-sm py-2.5 justify-center"
+                  >
+                    <FaGithub /> Github Client Link
+                  </a>
+                )}
+                {project.githubServerUrl && (
+                  <a
+                    href={project.githubServerUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline text-sm py-2.5 justify-center"
+                  >
+                    <FaGithub /> Github Server Link
+                  </a>
+                )}
+
               </div>
             </div>
           </motion.div>
@@ -195,9 +261,15 @@ export default function ProjectDetailPage() {
                 <Link key={p.id} href={`/project/${p.id}`}>
                   <div
                     className="group rounded-xl overflow-hidden"
-                    style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}
+                    style={{
+                      background: "#111",
+                      border: "1px solid rgba(255,255,255,0.06)",
+                    }}
                   >
-                    <div className="relative overflow-hidden" style={{ height: 180 }}>
+                    <div
+                      className="relative overflow-hidden"
+                      style={{ height: 180 }}
+                    >
                       <Image
                         src={p.img}
                         alt={p.title}
@@ -212,7 +284,9 @@ export default function ProjectDetailPage() {
                       >
                         {p.title}
                       </h3>
-                      <p className="text-xs text-[#666] line-clamp-2">{p.description}</p>
+                      <p className="text-xs text-[#666] line-clamp-2">
+                        {p.description}
+                      </p>
                     </div>
                   </div>
                 </Link>
