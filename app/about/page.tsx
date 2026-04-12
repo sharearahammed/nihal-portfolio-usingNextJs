@@ -106,7 +106,7 @@ export default function AboutPage() {
                     className="text-white text-sm font-bold"
                     style={{ fontFamily: "Syne, sans-serif" }}
                   >
-                    Fly Far Tech Company
+                    Fly Far International
                   </p>
                 </div>
               </div>

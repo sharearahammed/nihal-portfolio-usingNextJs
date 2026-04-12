@@ -8,7 +8,7 @@ export const personalInfo = {
     "Next.js Developer",
     "UI Craftsman",
   ],
-  bio: "A passionate Front-End Web Developer with 1+ year of professional experience at Fly Far Tech. I craft beautiful, responsive web experiences using React, Next.js & modern web tech.",
+  bio: "A passionate Front-End Web Developer with 1+ year of professional experience at Fly Far International. I craft beautiful, responsive web experiences using React, Next.js & modern web tech.",
   location: "Gazipur, Dhaka, Bangladesh",
   phone: "+880 1876523323",
   email: "sharearahammed@gmail.com",
