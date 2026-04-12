@@ -7,14 +7,18 @@ import { motion } from "framer-motion";
 import { HiArrowLeft, HiExternalLink } from "react-icons/hi";
 import { FaGithub } from "react-icons/fa";
 import { projects } from "@/lib/data";
+import { HiX } from "react-icons/hi";
+import { useState } from "react";
 
 export default function ProjectDetailPage() {
   const { id } = useParams();
-  const project = projects.find((p) => p.id === Number(id)) as
-    | (typeof projects)[0] & {
-        githubServerUrl?: string;
-        backendUrl?: string;
-      };
+  const [lightbox, setLightbox] = useState<string | null>(null);
+  const project = projects.find(
+    (p) => p.id === Number(id),
+  ) as (typeof projects)[0] & {
+    githubServerUrl?: string;
+    backendUrl?: string;
+  };
 
   if (!project) {
     return (
@@ -36,13 +40,11 @@ export default function ProjectDetailPage() {
 
   const others = projects.filter((p) => p.id !== project.id).slice(0, 2);
 
-  const hasFrontendAndBackend =
-    project.liveUrl !== "#" && project.backendUrl;
+  const hasFrontendAndBackend = project.liveUrl !== "#" && project.backendUrl;
 
   return (
     <div className="pt-24 pb-24">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-
         {/* Back */}
         <Link
           href="/projects"
@@ -119,26 +121,66 @@ export default function ProjectDetailPage() {
                   >
                     Screenshots
                   </h2>
+                  {/* Screenshot Gallery */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {project.images.slice(1).map((img, i) => (
                       <div
                         key={i}
-                        className="relative rounded-xl overflow-hidden"
+                        className="relative rounded-xl overflow-hidden cursor-pointer group"
                         style={{
                           height: 200,
                           background: "#111",
                           border: "1px solid rgba(255,255,255,0.06)",
                         }}
+                        onClick={() => setLightbox(img)}
                       >
                         <Image
                           src={img}
                           alt={`${project.title} screenshot ${i + 2}`}
                           fill
-                          className="object-cover"
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
                         />
+                        {/* Hover overlay */}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white text-xs font-semibold bg-black/60 px-3 py-1.5 rounded-full">
+                            Click to view
+                          </span>
+                        </div>
                       </div>
                     ))}
                   </div>
+
+                  {/* Lightbox */}
+                  {lightbox && (
+                    <div
+                      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                      style={{ background: "rgba(0,0,0,0.92)" }}
+                      onClick={() => setLightbox(null)}
+                    >
+                      {/* Close button */}
+                      <button
+                        className="absolute top-5 right-5 w-10 h-10 rounded-full flex items-center justify-center text-white hover:text-[#F97316] transition-colors"
+                        style={{ background: "rgba(255,255,255,0.08)" }}
+                        onClick={() => setLightbox(null)}
+                      >
+                        <HiX className="text-xl" />
+                      </button>
+
+                      {/* Image */}
+                      <div
+                        className="relative w-full max-w-4xl rounded-2xl overflow-hidden"
+                        style={{ height: "80vh" }}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Image
+                          src={lightbox}
+                          alt="Screenshot"
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </motion.div>
@@ -188,7 +230,6 @@ export default function ProjectDetailPage() {
                 Project Links
               </h3>
               <div className="flex flex-col gap-3">
-
                 {/* Live Links */}
                 {hasFrontendAndBackend ? (
                   <>
@@ -241,7 +282,6 @@ export default function ProjectDetailPage() {
                     <FaGithub /> Github Server Link
                   </a>
                 )}
-
               </div>
             </div>
           </motion.div>

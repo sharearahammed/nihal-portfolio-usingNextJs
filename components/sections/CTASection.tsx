@@ -31,7 +31,7 @@ export default function CTASection() {
           <div className="relative z-10">
             <p className="section-label mb-5">Get In Touch</p>
             <h2
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+              className="text-2xl md:text-4xl lg:text-5xl font-bold mb-6"
               style={{ fontFamily: "Syne, sans-serif" }}
             >
               {personalInfo.email}

@@ -11,6 +11,7 @@ import { personalInfo } from "@/lib/data";
 const roles = [
   "Software Engineer",
   "Full Stack Developer",
+  "PERN Stack Developer",
   "MERN Stack Developer",
   "Backend Developer",
   "Front-End Developer",

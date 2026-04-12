@@ -46,7 +46,7 @@ export default function SkillsMarquee() {
           className="flex gap-6 flex-shrink-0"
           style={{
             width: "max-content",
-            animation: "marquee 25s linear infinite reverse",
+            animation: "marquee 40s linear infinite reverse",
           }}
         >
           {[...doubled].reverse().map((tech, i) => (

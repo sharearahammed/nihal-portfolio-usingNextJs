@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     "TypeScript",
     "Backend Developer",
     "Full Stack Developer",
+    "PERN Stack Developer",
     "MERN Stack Developer",
     "Front-End Developer",
     "Portfolio",
