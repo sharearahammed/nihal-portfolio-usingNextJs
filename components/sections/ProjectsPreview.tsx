@@ -3,18 +3,19 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { HiArrowRight, HiExternalLink } from "react-icons/hi";
+import { HiArrowRight } from "react-icons/hi";
 import { projects } from "@/lib/data";
 import { useState } from "react";
 
 export default function ProjectsPreview() {
   const featured = projects.slice(0, 4);
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [activeId, setActiveId] = useState<number>(featured[0]?.id);
 
   return (
     <section className="py-28 border-t border-white/[0.05]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        {/* Header */}
+
+        {/* ── Header ──────────────────────────────────────────────── */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
             <p className="section-label mb-4">Portfolio</p>
@@ -35,8 +36,8 @@ export default function ProjectsPreview() {
           </Link>
         </div>
 
-        {/* Projects Grid — matches figma 2x2 layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {/* ── MOBILE: vertical stack (< md) ───────────────────────── */}
+        <div className="flex flex-col gap-5 md:hidden">
           {featured.map((project, i) => (
             <motion.div
               key={project.id}
@@ -48,40 +49,24 @@ export default function ProjectsPreview() {
               <Link href={`/project/${project.id}`}>
                 <div
                   className="relative overflow-hidden cursor-pointer"
-                  style={{
-                    borderRadius: "24px",
-                    background: "#111",
-                  }}
-                  onMouseEnter={() => setHoveredId(project.id)}
-                  onMouseLeave={() => setHoveredId(null)}
+                  style={{ borderRadius: "20px", background: "#111" }}
                 >
                   {/* Image */}
-                  <div
-                    className="relative w-full overflow-hidden"
-                    style={{ height: "300px", }}
-                  >
+                  <div className="relative w-full overflow-hidden" style={{ height: "220px" }}>
                     <Image
                       src={project.img}
                       alt={project.title}
                       fill
-                      // className="object-cover"
-                      style={{
-                        transform:
-                          hoveredId === project.id ? "scale(1.08)" : "scale(1)",
-                        transition: "transform 0.7s ease",
-                      }}
+                      className="object-cover"
                     />
-
-                    {/* Color tint */}
                     <div
                       className="absolute inset-0"
                       style={{
                         background: `linear-gradient(135deg, ${project.color}33 0%, transparent 60%)`,
                       }}
                     />
-
                     {/* Badges */}
-                    <div className="absolute top-4 left-4 flex gap-2 z-10">
+                    <div className="absolute top-3 left-3 flex gap-2 z-10">
                       <span
                         className="text-xs font-semibold px-3 py-1.5 rounded-full"
                         style={{
@@ -96,9 +81,10 @@ export default function ProjectsPreview() {
                       </span>
                       {project.featured && (
                         <span
-                          className="text-xs font-semibold px-3 py-1.5 rounded-full text-white"
+                          className="text-xs font-semibold px-3 py-1.5 rounded-full"
                           style={{
                             background: project.color,
+                            color: "#000",
                             fontFamily: "Syne, sans-serif",
                           }}
                         >
@@ -106,9 +92,8 @@ export default function ProjectsPreview() {
                         </span>
                       )}
                     </div>
-
                     {/* Number */}
-                    <div className="absolute top-4 right-4 z-10">
+                    <div className="absolute top-3 right-3 z-10">
                       <span
                         className="text-xs font-bold"
                         style={{
@@ -120,69 +105,11 @@ export default function ProjectsPreview() {
                         {String(i + 1).padStart(2, "0")}
                       </span>
                     </div>
-
-                    {/* + icon — desktop only, hides on hover */}
-                    <div
-                      className="absolute bottom-4 right-4 z-20 w-9 h-9 rounded-full items-center justify-center hidden md:flex"
-                      style={{
-                        background: "rgba(0,0,0,0.65)",
-                        border: "1px solid rgba(255,255,255,0.15)",
-                        backdropFilter: "blur(10px)",
-                        opacity: hoveredId === project.id ? 0 : 1,
-                        transform:
-                          hoveredId === project.id ? "scale(0.7)" : "scale(1)",
-                        transition: "opacity 0.3s, transform 0.3s",
-                      }}
-                    >
-                      <span className="text-white text-lg font-light">+</span>
-                    </div>
-
-                    {/* Desktop slide-up drawer — hover only */}
-                    <div
-                      className="absolute bottom-0 left-0 right-0 z-10 p-5 hidden md:block"
-                      style={{
-                        background: "rgba(8,8,8,0.93)",
-                        backdropFilter: "blur(20px)",
-                        borderTop: `1px solid ${project.color}44`,
-                        transform:
-                          hoveredId === project.id
-                            ? "translateY(0)"
-                            : "translateY(100%)",
-                        transition:
-                          "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)",
-                      }}
-                    >
-                      <h3
-                        className="text-base font-bold text-white mb-1.5 leading-tight"
-                        style={{ fontFamily: "Syne, sans-serif" }}
-                      >
-                        {project.title}
-                      </h3>
-                      <p className="text-[#777] text-xs leading-relaxed mb-3">
-                        {project.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {project.stack.slice(0, 3).map((tech) => (
-                          <span
-                            key={tech}
-                            className="text-xs px-2.5 py-1 rounded-full"
-                            style={{
-                              background: project.color + "18",
-                              color: project.color,
-                              border: `1px solid ${project.color}33`,
-                              fontFamily: "Syne, sans-serif",
-                            }}
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
                   </div>
 
-                  {/* Mobile content — always visible below image */}
+                  {/* Content below image */}
                   <div
-                    className="block md:hidden p-5"
+                    className="p-5"
                     style={{
                       borderTop: `1px solid ${project.color}33`,
                       background: "#0f0f0f",
@@ -202,9 +129,7 @@ export default function ProjectsPreview() {
                           border: `1px solid ${project.color}44`,
                         }}
                       >
-                        <HiArrowRight
-                          style={{ color: project.color, fontSize: "14px" }}
-                        />
+                        <HiArrowRight style={{ color: project.color, fontSize: "14px" }} />
                       </div>
                     </div>
                     <p className="text-[#666] text-xs leading-relaxed mb-3">
@@ -245,6 +170,230 @@ export default function ProjectsPreview() {
             </motion.div>
           ))}
         </div>
+
+        {/* ── DESKTOP: horizontal expand cards (≥ md) ─────────────── */}
+        <motion.div
+          className="hidden md:flex flex-row items-stretch gap-3 w-full"
+          style={{ height: "460px" }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          onMouseLeave={() => setActiveId(featured[0]?.id)}
+        >
+          {featured.map((project, i) => {
+            const isActive = activeId === project.id;
+
+            return (
+              <Link
+                key={project.id}
+                href={`/project/${project.id}`}
+                style={{
+                  textDecoration: "none",
+                  /* ── KEY FIX: flex-based sizing fills the full row ── */
+                  flex: isActive ? "1 1 0%" : "0 0 64px",
+                  minWidth: 0,
+                  transition: "flex 0.65s cubic-bezier(0.4, 0, 0.2, 1)",
+                }}
+              >
+                <div
+                  onMouseEnter={() => setActiveId(project.id)}
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    height: "460px",
+                    borderRadius: "28px",
+                    overflow: "hidden",
+                    cursor: "pointer",
+                    background: "#111",
+                  }}
+                >
+                  {/* Background image */}
+                  <Image
+                    src={project.img}
+                    alt={project.title}
+                    fill
+                    style={{
+                      objectFit: "cover",
+                      transform: isActive ? "scale(1.04)" : "scale(1.12)",
+                      transition: "transform 0.7s ease",
+                    }}
+                  />
+
+                  {/* Dark overlay */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: isActive
+                        ? "linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.15) 55%, transparent 100%)"
+                        : "rgba(0,0,0,0.42)",
+                      transition: "background 0.5s ease",
+                    }}
+                  />
+
+                  {/* Color tint */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: `linear-gradient(135deg, ${project.color}22 0%, transparent 55%)`,
+                      opacity: isActive ? 1 : 0,
+                      transition: "opacity 0.5s ease",
+                    }}
+                  />
+
+                  {/* ── Collapsed: vertical title ── */}
+                  <div
+                    className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                    style={{
+                      opacity: isActive ? 0 : 1,
+                      transition: "opacity 0.25s ease",
+                    }}
+                  >
+                    <span
+                      style={{
+                        writingMode: "vertical-rl",
+                        textOrientation: "mixed",
+                        transform: "rotate(180deg)",
+                        color: "#fff",
+                        fontSize: "12px",
+                        fontWeight: 700,
+                        letterSpacing: "0.14em",
+                        fontFamily: "Syne, sans-serif",
+                        textTransform: "uppercase",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {project.title}
+                    </span>
+                  </div>
+
+                  {/* ── Expanded: top badges ── */}
+                  <div
+                    className="absolute top-4 left-4 flex gap-2 z-10"
+                    style={{
+                      opacity: isActive ? 1 : 0,
+                      transition: "opacity 0.3s ease 0.2s",
+                    }}
+                  >
+                    <span
+                      className="text-xs font-semibold px-3 py-1.5 rounded-full"
+                      style={{
+                        background: "rgba(0,0,0,0.6)",
+                        color: "#ddd",
+                        border: "1px solid rgba(255,255,255,0.12)",
+                        fontFamily: "Syne, sans-serif",
+                        backdropFilter: "blur(10px)",
+                      }}
+                    >
+                      {project.category}
+                    </span>
+                    {project.featured && (
+                      <span
+                        className="text-xs font-semibold px-3 py-1.5 rounded-full"
+                        style={{
+                          background: project.color,
+                          color: "#000",
+                          fontFamily: "Syne, sans-serif",
+                        }}
+                      >
+                        Featured
+                      </span>
+                    )}
+                  </div>
+
+                  {/* ── Expanded: index number ── */}
+                  <div
+                    className="absolute top-4 right-4 z-10"
+                    style={{
+                      opacity: isActive ? 1 : 0,
+                      transition: "opacity 0.3s ease 0.2s",
+                    }}
+                  >
+                    <span
+                      className="text-xs font-bold"
+                      style={{
+                        fontFamily: "Syne, sans-serif",
+                        color: project.color,
+                        letterSpacing: "0.15em",
+                      }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+
+                  {/* ── Expanded: bottom content ── */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 z-10 p-5"
+                    style={{
+                      opacity: isActive ? 1 : 0,
+                      transform: isActive ? "translateY(0)" : "translateY(16px)",
+                      transition: "opacity 0.4s ease 0.15s, transform 0.4s ease 0.15s",
+                      pointerEvents: isActive ? "auto" : "none",
+                    }}
+                  >
+                    {/* Icon + title */}
+                    <div className="flex items-center gap-3 mb-3">
+                      <div
+                        className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0"
+                        style={{
+                          background: "rgba(255,255,255,0.12)",
+                          backdropFilter: "blur(10px)",
+                          border: "1px solid rgba(255,255,255,0.22)",
+                        }}
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                          <path
+                            d="M3 20l5.5-9 3.5 5.5 2.5-4 4.5 7.5H3z"
+                            stroke="white"
+                            strokeWidth="1.8"
+                            strokeLinejoin="round"
+                            strokeLinecap="round"
+                          />
+                          <circle cx="17" cy="7" r="2" stroke="white" strokeWidth="1.8" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h3
+                          className="text-base font-bold text-white leading-tight"
+                          style={{ fontFamily: "Syne, sans-serif" }}
+                        >
+                          {project.title}
+                        </h3>
+                        <p
+                          className="text-xs leading-relaxed"
+                          style={{ color: "rgba(255,255,255,0.6)" }}
+                        >
+                          {project.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Stack badges */}
+                    <div className="flex flex-wrap gap-2">
+                      {project.stack.slice(0, 3).map((tech) => (
+                        <span
+                          key={tech}
+                          className="text-xs px-2.5 py-1 rounded-full"
+                          style={{
+                            background: project.color + "20",
+                            color: project.color,
+                            border: `1px solid ${project.color}44`,
+                            fontFamily: "Syne, sans-serif",
+                            backdropFilter: "blur(6px)",
+                            fontWeight: 600,
+                          }}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </motion.div>
+
       </div>
     </section>
   );

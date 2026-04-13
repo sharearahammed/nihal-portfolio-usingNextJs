@@ -31,12 +31,12 @@ export default function CTASection() {
           <div className="relative z-10">
             <p className="section-label mb-5">Get In Touch</p>
             <h2
-              className="text-2xl md:text-4xl lg:text-5xl font-bold mb-6"
+              className="text-xl md:text-4xl lg:text-5xl font-bold mb-6"
               style={{ fontFamily: "Syne, sans-serif" }}
             >
               {personalInfo.email}
             </h2>
-            <p className="text-[#666] text-sm mb-10 max-w-md mx-auto">
+            <p className="text-[#666] text-xs mb-10 max-w-md mx-auto">
               Have a project in mind? Let&apos;s collaborate and build something amazing together.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

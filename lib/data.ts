@@ -38,6 +38,7 @@ export const skillSections = [
       { src: "/tailwind.png", title: "Tailwind CSS" },
       { src: "/redux.svg", title: "Redux" },
       { src: "/mui.png", title: "Material UI" },
+      { src: "/Postgresql_elephant.png", title: "PostgreSQL" },
       { src: "/mongodb.svg", title: "MongoDB" },
     ],
   },
@@ -49,7 +50,6 @@ export const skillSections = [
       { src: "/js.png", title: "JavaScript" },
       { src: "/typescript-def.png", title: "TypeScript" },
       { src: "/express.png", title: "Express.js" },
-      { src: "/Postgresql_elephant.png", title: "PostgreSQL" },
     ],
   },
   {
@@ -202,6 +202,33 @@ export const projects = [
   },
   {
     id: 6,
+    title: "Ticket Booking Platform",
+    slug: "ticket-booking-platform",
+    category: "Full Stack",
+    img: "/ticket-booking1.jpg",
+    images: [
+      "/ticket-booking1.jpg",
+      "/ticket-booking2.jpg",
+      "/ticket-booking3.jpg",
+    ],
+    description:
+      "Modern responsive single-page ticket booking platform for Movies, Events & Transportation. Built with React.js, Tailwind CSS, Redux Toolkit, and TanStack Query with infinite scroll.",
+    longDescription:
+      "A modern, responsive ticket booking platform with an app-like mobile experience. Supports browsing and booking tickets for Movies, Events, and Transportation. Features include infinite scroll powered by TanStack Infinite Query, category-based filtering and sorting, interactive seat selection, persistent cart with Redux Toolkit, and dynamic price calculation with tax breakdown. Built with a mobile-first approach featuring gradient headings, smooth animations, and a clean card layout.",
+    stack: [
+      "React.js",
+      "Tailwind CSS",
+      "Redux Toolkit",
+      "TanStack Query",
+      "React Router DOM",
+    ],
+    liveUrl: "https://ticket-booking-platform.netlify.app",
+    githubUrl: "https://github.com/sharearahammed/ticket-booking-platform",
+    featured: true,
+    color: "#2563EB",
+  },
+  {
+    id: 7,
     title: "Flight Search Box Clone",
     slug: "flight-search-clone",
     category: "Frontend",
@@ -216,9 +243,10 @@ export const projects = [
     longDescription:
       "A highly accurate clone of a professional flight search interface built to demonstrate TypeScript skills and attention to UI detail. Supports one-way, round-trip, and multi-city flight searches with dynamic form fields, date pickers, and passenger selection.",
     stack: ["React JS", "Tailwind CSS", "TypeScript"],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://ticket-booking-platform.netlify.app",
+    githubUrl: "https://github.com/sharearahammed/ticket-booking-platform?tab=readme-ov-file",
     featured: false,
     color: "#F59E0B",
   },
+  
 ];

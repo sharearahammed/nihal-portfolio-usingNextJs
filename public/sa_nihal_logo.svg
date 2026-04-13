@@ -1,41 +1,43 @@
-<svg width="100%" viewBox="0 0 680 220" role="img" xmlns="http://www.w3.org/2000/svg"><defs><mask id="imagine-text-gaps-eo5n2p" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="680" height="220" fill="white"/><rect x="-113.18433380126953" y="-61.44191360473633" width="46.722835540771484" height="99.39039611816406" fill="black" rx="2"/><rect x="-10.312447547912598" y="-61.44191360473633" width="59.00080490112305" height="99.39039611816406" fill="black" rx="2"/><rect x="57.782928466796875" y="-25.227798461914062" width="124.43413543701172" height="40.83391571044922" fill="black" rx="2"/><rect x="237.9754638671875" y="163.72203063964844" width="204.04910278320312" height="19.111350059509277" fill="black" rx="2"/></mask></defs>
-  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">S.A. Nihal Logo</title>
-  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Modern minimal logo for S.A. Nihal portfolio</desc>
+<svg width="340" height="80" viewBox="0 0 340 80" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>S.A. Nihal Logo</title>
+  <g transform="translate(170, 40)">
 
-  
+    <!-- Left bracket -->
+    <path d="M -148 -28 L -158 -28 L -158 28 L -148 28"
+      fill="none" stroke="#F97316" stroke-width="3"
+      stroke-linecap="round" stroke-linejoin="round"/>
 
-  <!-- Center the logo group -->
-  <g transform="translate(340, 110)" style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Segoe UI&quot;, system-ui, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">
+    <!-- Right bracket -->
+    <path d="M 148 -28 L 158 -28 L 158 28 L 148 28"
+      fill="none" stroke="#F97316" stroke-width="3"
+      stroke-linecap="round" stroke-linejoin="round"/>
 
-    <!-- Left bracket accent -->
-    <path d="M -148 -38 L -162 -38 L -162 38 L -148 38" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="fill:none;stroke:rgb(249, 115, 22);color:rgb(255, 255, 255);stroke-width:3px;stroke-linecap:round;stroke-linejoin:round;opacity:1;font-family:&quot;Segoe UI&quot;, system-ui, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+    <!-- S -->
+    <text x="-90" y="0"
+      text-anchor="middle" dominant-baseline="middle"
+      font-family="'Syne','Segoe UI',sans-serif"
+      font-size="52" font-weight="700"
+      fill="#FFFFFF" letter-spacing="-2">S</text>
 
-    <!-- Right bracket accent -->
-    <path d="M 148 -38 L 162 -38 L 162 38 L 148 38" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" mask="url(#imagine-text-gaps-eo5n2p)" style="fill:none;stroke:rgb(249, 115, 22);color:rgb(255, 255, 255);stroke-width:3px;stroke-linecap:round;stroke-linejoin:round;opacity:1;font-family:&quot;Segoe UI&quot;, system-ui, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+    <!-- dot after S -->
+    <circle cx="-38" cy="8" r="4" fill="#F97316"/>
 
-    <!-- S letter -->
-    <text x="-90" y="0" text-anchor="middle" dominant-baseline="middle" font-family="'Syne', 'Segoe UI', sans-serif" font-size="72" font-weight="700" fill="#FFFFFF" letter-spacing="-2" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Syne, &quot;Segoe UI&quot;, sans-serif;font-size:72px;font-weight:700;text-anchor:middle;dominant-baseline:middle">S</text>
-
-    <!-- dot separator -->
-    <circle cx="-32" cy="10" r="5" fill="#F97316" style="fill:rgb(249, 115, 22);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Segoe UI&quot;, system-ui, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
-
-    <!-- A letter -->
-    <text x="18" y="0" text-anchor="middle" dominant-baseline="middle" font-family="'Syne', 'Segoe UI', sans-serif" font-size="72" font-weight="700" fill="#F97316" letter-spacing="-2" style="fill:rgb(249, 115, 22);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Syne, &quot;Segoe UI&quot;, sans-serif;font-size:72px;font-weight:700;text-anchor:middle;dominant-baseline:middle">A</text>
+    <!-- A -->
+    <text x="14" y="0"
+      text-anchor="middle" dominant-baseline="middle"
+      font-family="'Syne','Segoe UI',sans-serif"
+      font-size="52" font-weight="700"
+      fill="#F97316" letter-spacing="-2">A</text>
 
     <!-- dot after A -->
-    <circle cx="60" cy="10" r="5" fill="#F97316" style="fill:rgb(249, 115, 22);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Segoe UI&quot;, system-ui, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+    <circle cx="55" cy="8" r="4" fill="#F97316"/>
 
-    <!-- Divider line -->
-    <line x1="82" y1="-30" x2="82" y2="30" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" mask="url(#imagine-text-gaps-eo5n2p)" style="fill:rgb(0, 0, 0);stroke:rgba(255, 255, 255, 0.2);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Segoe UI&quot;, system-ui, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
-
-    <!-- NIHAL text -->
-    <text x="120" y="0" text-anchor="middle" dominant-baseline="middle" font-family="'Syne', 'Segoe UI', sans-serif" font-size="28" font-weight="700" fill="#FFFFFF" letter-spacing="6" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Syne, &quot;Segoe UI&quot;, sans-serif;font-size:28px;font-weight:700;text-anchor:middle;dominant-baseline:middle">NIHAL</text>
+    <!-- NIHAL -->
+    <text x="116" y="0"
+      text-anchor="middle" dominant-baseline="middle"
+      font-family="'Syne','Segoe UI',sans-serif"
+      font-size="20" font-weight="700"
+      fill="#FFFFFF" letter-spacing="5">NIHAL</text>
 
   </g>
-
-
-  <!-- Top subtle orange line accent -->
-  <line x1="240" y1="42" x2="440" y2="42" stroke="#F97316" stroke-width="1" opacity="0.3" style="fill:rgb(0, 0, 0);stroke:rgb(249, 115, 22);color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.3;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
-  <line x1="240" y1="178" x2="440" y2="178" stroke="#F97316" stroke-width="1" opacity="0.3" mask="url(#imagine-text-gaps-eo5n2p)" style="fill:rgb(0, 0, 0);stroke:rgb(249, 115, 22);color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.3;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
-
 </svg>

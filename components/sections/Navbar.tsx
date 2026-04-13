@@ -49,15 +49,15 @@ export default function Navbar() {
             : "bg-[#0A0A0A]"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 pl-0 lg:px-10 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="font-display tracking-tight">
             <Image
               src="/sa_nihal_logo.svg"
               alt="S.A. Nihal Logo"
-              width={200}
+              width={100}
               height={90}
-              className="w-[160px] h-auto sm:w-40 md:w-48"
+              className="w-24 h-auto sm:w-40 md:w-28"
               priority
             />
           </Link>
