@@ -7,7 +7,7 @@ import { skillSections } from "@/lib/data";
 export default function SkillsPage() {
   const handleMouseMove = (
     e: React.MouseEvent<HTMLDivElement>,
-    color: string
+    color: string,
   ) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -41,7 +41,6 @@ export default function SkillsPage() {
   return (
     <div className="pt-24 pb-24">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-
         {/* Header */}
         <div className="mb-20">
           <p className="section-label mb-4">Expertise</p>
@@ -49,11 +48,11 @@ export default function SkillsPage() {
             className="text-5xl md:text-7xl font-bold leading-tight"
             style={{ fontFamily: "Syne, sans-serif" }}
           >
-            My{" "}
-            <span className="text-[#F97316]">Skills</span>
+            My <span className="text-[#F97316]">Skills</span>
           </h1>
           <p className="text-[#666] text-sm mt-4 max-w-lg">
-            Technologies I&apos;ve been working with and mastering over the years.
+            Technologies I&apos;ve been working with and mastering over the
+            years.
           </p>
         </div>
 
@@ -101,8 +100,7 @@ export default function SkillsPage() {
                   style={{
                     background: "#111",
                     border: "1px solid rgba(255,255,255,0.06)",
-                    transition:
-                      "transform 0.12s ease, border-color 0.2s ease",
+                    transition: "transform 0.12s ease, border-color 0.2s ease",
                     transformStyle: "preserve-3d",
                     willChange: "transform",
                   }}
@@ -138,12 +136,6 @@ export default function SkillsPage() {
                   >
                     {skill.title}
                   </p>
-
-                  {/* Bottom accent line */}
-                  <div
-                    className="absolute bottom-0 left-0 right-0 h-0.5 rounded-b-xl scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left z-10"
-                    style={{ background: section.color }}
-                  />
                 </motion.div>
               ))}
             </div>
@@ -156,7 +148,10 @@ export default function SkillsPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mt-8 rounded-2xl p-10 text-center relative overflow-hidden"
-          style={{ background: "#111", border: "1px solid rgba(255,255,255,0.06)" }}
+          style={{
+            background: "#111",
+            border: "1px solid rgba(255,255,255,0.06)",
+          }}
         >
           <div
             className="absolute inset-0 pointer-events-none"
@@ -173,12 +168,12 @@ export default function SkillsPage() {
               Always Learning &amp; Growing
             </h3>
             <p className="text-[#666] text-sm max-w-xl mx-auto">
-              I&apos;m committed to staying updated with the latest web technologies.
-              My skill set continues to evolve with hands-on experience and continuous learning.
+              I&apos;m committed to staying updated with the latest web
+              technologies. My skill set continues to evolve with hands-on
+              experience and continuous learning.
             </p>
           </div>
         </motion.div>
-
       </div>
     </div>
   );

@@ -207,26 +207,34 @@ export default function AboutPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-24">
           {stats.map((s, i) => (
             <motion.div
-              key={s.label}
-              custom={i}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="text-center py-8 rounded-xl"
+              whileHover={{
+                y: -10,
+                scale: 1.05,
+              }}
+              className="group relative overflow-hidden rounded-3xl p-[1px]"
               style={{
-                background: "#111",
-                border: "1px solid rgba(255,255,255,0.06)",
+                background:
+                  "linear-gradient(145deg, rgba(249,115,22,0.5), rgba(255,255,255,0.05))",
               }}
             >
-              <p className="text-4xl mb-1">{s.icon}</p>
-              <p
-                className="text-3xl font-bold text-[#F97316] mb-1"
-                style={{ fontFamily: "Syne, sans-serif" }}
+              <div
+                className="rounded-3xl p-8 text-center"
+                style={{
+                  background: "#111",
+                  backdropFilter: "blur(20px)",
+                }}
               >
-                {s.value}
-              </p>
-              <p className="text-xs text-[#666]">{s.label}</p>
+                <div className="text-5xl mb-3">{s.icon}</div>
+
+                <h3
+                  className="text-4xl font-bold text-[#F97316]"
+                  style={{ fontFamily: "Syne, sans-serif" }}
+                >
+                  {s.value}
+                </h3>
+
+                <p className="text-sm text-[#777] mt-2">{s.label}</p>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -249,20 +257,49 @@ export default function AboutPage() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
-                className="p-6 rounded-xl"
+                whileHover={{
+                  y: -12,
+                  scale: 1.04,
+                  rotateX: 4,
+                  rotateY: 4,
+                }}
+                transition={{ duration: 0.3 }}
+                className="group relative overflow-hidden rounded-3xl p-[1px]"
                 style={{
-                  background: "#111",
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  background:
+                    "linear-gradient(145deg, rgba(249,115,22,0.4), rgba(255,255,255,0.04), rgba(249,115,22,0.15))",
                 }}
               >
-                <span className="text-3xl mb-4 block">{h.icon}</span>
-                <h3
-                  className="text-sm font-bold text-white mb-1"
-                  style={{ fontFamily: "Syne, sans-serif" }}
+                <div
+                  className="relative h-full rounded-3xl p-7 overflow-hidden"
+                  style={{
+                    background: "rgba(17,17,17,0.95)",
+                    backdropFilter: "blur(20px)",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                  }}
                 >
-                  {h.title}
-                </h3>
-                <p className="text-xs text-[#666]">{h.desc}</p>
+                  {/* Glow */}
+                  <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#F97316]/10 blur-3xl rounded-full group-hover:bg-[#F97316]/20 transition-all duration-500" />
+
+                  {/* Icon */}
+                  <div className="mb-5 text-5xl relative z-10">{h.icon}</div>
+
+                  {/* Title */}
+                  <h3
+                    className="text-lg font-bold text-white mb-2 relative z-10"
+                    style={{ fontFamily: "Syne, sans-serif" }}
+                  >
+                    {h.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-sm text-[#888] leading-relaxed relative z-10">
+                    {h.desc}
+                  </p>
+
+                  {/* Bottom Accent */}
+                  <div className="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full bg-[#F97316] transition-all duration-500" />
+                </div>
               </motion.div>
             ))}
           </div>
@@ -286,12 +323,24 @@ export default function AboutPage() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
-                className="p-6 rounded-xl"
+                whileHover={{
+                  y: -8,
+                  scale: 1.02,
+                }}
+                className="group relative overflow-hidden p-6 rounded-2xl"
                 style={{
-                  background: "#111",
+                  background: "linear-gradient(145deg,#111,#181818)",
                   border: "1px solid rgba(255,255,255,0.06)",
+                  boxShadow: "0 8px 25px rgba(0,0,0,0.25)",
                 }}
               >
+                <div
+                  className="absolute top-0 left-0 h-1 w-full"
+                  style={{
+                    background: section.color,
+                  }}
+                />
+
                 <div className="flex items-center gap-2 mb-5">
                   <span
                     className="w-2 h-2 rounded-full"
@@ -304,6 +353,7 @@ export default function AboutPage() {
                     {section.title}
                   </h3>
                 </div>
+
                 <div className="flex flex-wrap gap-2">
                   {section.skills.map((skill) => (
                     <span key={skill.title} className="tag">
@@ -314,9 +364,33 @@ export default function AboutPage() {
               </motion.div>
             ))}
           </div>
-          <div className="mt-8 text-center">
-            <Link href="/skills" className="btn-outline">
-              View Full Skills Page
+          <div className="mt-10 text-center">
+            <Link
+              href="/skills"
+              className="group inline-flex items-center gap-3 px-7 py-3 rounded-2xl relative overflow-hidden"
+              style={{
+                background: "#111",
+                fontFamily: "Syne, sans-serif",
+                fontWeight: 600,
+                color: "#fff",
+                boxShadow: "0 10px 25px rgba(249,115,22,0.25)",
+              }}
+            >
+              <span className="relative z-10">View Full Skills Page</span>
+
+              <span className="relative z-10 text-lg transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+
+              {/* Shine Effect */}
+              <span
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500"
+                style={{
+                  background:
+                    "linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.15), transparent 80%)",
+                  transform: "translateX(-100%)",
+                }}
+              />
             </Link>
           </div>
         </div>
