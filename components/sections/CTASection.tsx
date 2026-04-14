@@ -15,7 +15,7 @@ export default function CTASection() {
           transition={{ duration: 0.7 }}
           className="relative overflow-hidden rounded-2xl text-center py-20 px-8"
           style={{
-            background: "#111",
+           background: "var(--bg-card)",
             border: "1px solid rgba(255,255,255,0.06)",
           }}
         >
@@ -36,7 +36,7 @@ export default function CTASection() {
             >
               {personalInfo.email}
             </h2>
-            <p className="text-[#666] text-xs mb-10 max-w-md mx-auto">
+            <p className="text-[#888] text-sm mb-10 max-w-md mx-auto">
               Have a project in mind? Let&apos;s collaborate and build something amazing together.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

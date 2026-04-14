@@ -58,11 +58,14 @@ export default function AboutPage() {
           <p className="section-label mb-4">About Me</p>
           <h1
             className="text-5xl md:text-7xl font-bold leading-tight"
-            style={{ fontFamily: "Syne, sans-serif" }}
+            style={{
+              fontFamily: "Syne, sans-serif",
+              color: "var(--text-primary)",
+            }}
           >
             Get to know me
             <br />
-            <span className="text-[#F97316]">a little closer</span>
+            <span style={{ color: "#F97316" }}>a little closer</span>
           </h1>
         </div>
 
@@ -77,7 +80,11 @@ export default function AboutPage() {
           >
             <div
               className="relative gradient-border overflow-hidden"
-              style={{ borderRadius: "16px", height: 500, background: "#111" }}
+              style={{
+                borderRadius: "16px",
+                height: 500,
+                background: "var(--bg-card)",
+              }}
             >
               <Image
                 src="/nihal.jpg"
@@ -90,7 +97,7 @@ export default function AboutPage() {
                 className="absolute inset-0 pointer-events-none"
                 style={{
                   background:
-                    "linear-gradient(to bottom, transparent 60%, rgba(10,10,10,0.7) 100%)",
+                    "linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7) 100%)",
                 }}
               />
               <div className="absolute bottom-5 left-5 right-5">
@@ -98,13 +105,18 @@ export default function AboutPage() {
                   className="glass-card rounded-xl px-4 py-3"
                   style={{
                     backdropFilter: "blur(16px)",
-                    background: "rgba(26,26,26,0.9)",
+                    background: "var(--bg-card)",
                   }}
                 >
-                  <p className="text-xs text-[#666]">Front-End Developer at</p>
+                  <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+                    Front-End Developer at
+                  </p>
                   <p
-                    className="text-white text-sm font-bold"
-                    style={{ fontFamily: "Syne, sans-serif" }}
+                    className="text-sm font-bold"
+                    style={{
+                      fontFamily: "Syne, sans-serif",
+                      color: "var(--text-primary)",
+                    }}
                   >
                     Fly Far International
                   </p>
@@ -121,16 +133,24 @@ export default function AboutPage() {
           >
             <h2
               className="text-3xl font-bold mb-6"
-              style={{ fontFamily: "Syne, sans-serif" }}
+              style={{
+                fontFamily: "Syne, sans-serif",
+                color: "var(--text-primary)",
+              }}
             >
               Hello! I&apos;m{" "}
-              <span className="text-[#F97316]">Sharear Ahammed</span>
+              <span style={{ color: "#F97316" }}>Sharear Ahammed</span>
             </h2>
-
-            <p className="text-[#888] text-sm leading-relaxed mb-4">
+            <p
+              className="text-sm leading-relaxed mb-4"
+              style={{ color: "var(--text-secondary)" }}
+            >
               {personalInfo.bio}
             </p>
-            <p className="text-[#666] text-sm leading-relaxed mb-8">
+            <p
+              className="text-sm leading-relaxed mb-8"
+              style={{ color: "var(--text-muted)" }}
+            >
               I bring a deep focus on performance, accessibility, and clean
               code. Whether it&apos;s building complex flight booking systems or
               crafting elegant landing pages, I approach every project with the
@@ -150,15 +170,21 @@ export default function AboutPage() {
                 <div
                   key={label}
                   className="flex gap-4 text-sm py-2 border-b"
-                  style={{ borderColor: "rgba(255,255,255,0.05)" }}
+                  style={{ borderColor: "var(--border)" }}
                 >
                   <span
-                    className="text-[#F97316] w-24 flex-shrink-0"
-                    style={{ fontFamily: "Syne, sans-serif", fontWeight: 600 }}
+                    className="w-24 flex-shrink-0"
+                    style={{
+                      fontFamily: "Syne, sans-serif",
+                      fontWeight: 600,
+                      color: "#F97316",
+                    }}
                   >
                     {label}
                   </span>
-                  <span className="text-[#bbb]">{value}</span>
+                  <span style={{ color: "var(--text-secondary)" }}>
+                    {value}
+                  </span>
                 </div>
               ))}
             </div>
@@ -167,7 +193,6 @@ export default function AboutPage() {
             <div className="flex flex-wrap gap-3 mb-8">
               <a
                 href="/Resume of Sharear Ahammed Nihal.pdf"
-                // href="/CV of Sharear Ahammed Nihal.pdf.pdf"
                 download="Resume of Sharear Ahammed Nihal.pdf"
                 className="btn-brand"
               >
@@ -190,10 +215,11 @@ export default function AboutPage() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl flex items-center justify-center text-[#888] hover:text-white transition-colors"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center transition-colors"
                   style={{
-                    background: "#1A1A1A",
-                    border: "1px solid rgba(255,255,255,0.07)",
+                    background: "var(--bg-card)",
+                    border: "1px solid var(--border-soft)",
+                    color: "var(--text-secondary)",
                   }}
                 >
                   <Icon className="text-base" />
@@ -207,33 +233,34 @@ export default function AboutPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-24">
           {stats.map((s, i) => (
             <motion.div
-              whileHover={{
-                y: -10,
-                scale: 1.05,
-              }}
+              key={i}
+              whileHover={{ y: -10, scale: 1.05 }}
               className="group relative overflow-hidden rounded-3xl p-[1px]"
               style={{
                 background:
-                  "linear-gradient(145deg, rgba(249,115,22,0.5), rgba(255,255,255,0.05))",
+                  "linear-gradient(145deg, rgba(249,115,22,0.5), var(--border))",
               }}
             >
               <div
                 className="rounded-3xl p-8 text-center"
                 style={{
-                  background: "#111",
+                  background: "var(--bg-card)",
                   backdropFilter: "blur(20px)",
                 }}
               >
                 <div className="text-5xl mb-3">{s.icon}</div>
-
                 <h3
-                  className="text-4xl font-bold text-[#F97316]"
-                  style={{ fontFamily: "Syne, sans-serif" }}
+                  className="text-4xl font-bold"
+                  style={{ fontFamily: "Syne, sans-serif", color: "#F97316" }}
                 >
                   {s.value}
                 </h3>
-
-                <p className="text-sm text-[#777] mt-2">{s.label}</p>
+                <p
+                  className="text-sm mt-2"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  {s.label}
+                </p>
               </div>
             </motion.div>
           ))}
@@ -244,7 +271,10 @@ export default function AboutPage() {
           <p className="section-label mb-4">Values</p>
           <h2
             className="text-3xl md:text-4xl font-bold mb-12"
-            style={{ fontFamily: "Syne, sans-serif" }}
+            style={{
+              fontFamily: "Syne, sans-serif",
+              color: "var(--text-primary)",
+            }}
           >
             What Drives Me
           </h2>
@@ -257,47 +287,39 @@ export default function AboutPage() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
-                whileHover={{
-                  y: -12,
-                  scale: 1.04,
-                  rotateX: 4,
-                  rotateY: 4,
-                }}
+                whileHover={{ y: -12, scale: 1.04, rotateX: 4, rotateY: 4 }}
                 transition={{ duration: 0.3 }}
                 className="group relative overflow-hidden rounded-3xl p-[1px]"
                 style={{
                   background:
-                    "linear-gradient(145deg, rgba(249,115,22,0.4), rgba(255,255,255,0.04), rgba(249,115,22,0.15))",
+                    "linear-gradient(145deg, rgba(249,115,22,0.4), var(--border), rgba(249,115,22,0.15))",
                 }}
               >
                 <div
                   className="relative h-full rounded-3xl p-7 overflow-hidden"
                   style={{
-                    background: "rgba(17,17,17,0.95)",
+                    background: "var(--bg-card)",
                     backdropFilter: "blur(20px)",
-                    border: "1px solid rgba(255,255,255,0.05)",
+                    border: "1px solid var(--border)",
                   }}
                 >
-                  {/* Glow */}
                   <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#F97316]/10 blur-3xl rounded-full group-hover:bg-[#F97316]/20 transition-all duration-500" />
-
-                  {/* Icon */}
                   <div className="mb-5 text-5xl relative z-10">{h.icon}</div>
-
-                  {/* Title */}
                   <h3
-                    className="text-lg font-bold text-white mb-2 relative z-10"
-                    style={{ fontFamily: "Syne, sans-serif" }}
+                    className="text-lg font-bold mb-2 relative z-10"
+                    style={{
+                      fontFamily: "Syne, sans-serif",
+                      color: "var(--text-primary)",
+                    }}
                   >
                     {h.title}
                   </h3>
-
-                  {/* Description */}
-                  <p className="text-sm text-[#888] leading-relaxed relative z-10">
+                  <p
+                    className="text-sm leading-relaxed relative z-10"
+                    style={{ color: "var(--text-secondary)" }}
+                  >
                     {h.desc}
                   </p>
-
-                  {/* Bottom Accent */}
                   <div className="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full bg-[#F97316] transition-all duration-500" />
                 </div>
               </motion.div>
@@ -310,7 +332,10 @@ export default function AboutPage() {
           <p className="section-label mb-4">Skills</p>
           <h2
             className="text-3xl md:text-4xl font-bold mb-12"
-            style={{ fontFamily: "Syne, sans-serif" }}
+            style={{
+              fontFamily: "Syne, sans-serif",
+              color: "var(--text-primary)",
+            }}
           >
             My Tech Stack
           </h2>
@@ -323,37 +348,33 @@ export default function AboutPage() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
-                whileHover={{
-                  y: -8,
-                  scale: 1.02,
-                }}
+                whileHover={{ y: -8, scale: 1.02 }}
                 className="group relative overflow-hidden p-6 rounded-2xl"
                 style={{
-                  background: "linear-gradient(145deg,#111,#181818)",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                  boxShadow: "0 8px 25px rgba(0,0,0,0.25)",
+                  background: "var(--bg-card)",
+                  border: "1px solid var(--border)",
+                  boxShadow: "0 8px 25px rgba(0,0,0,0.1)",
                 }}
               >
                 <div
                   className="absolute top-0 left-0 h-1 w-full"
-                  style={{
-                    background: section.color,
-                  }}
+                  style={{ background: section.color }}
                 />
-
                 <div className="flex items-center gap-2 mb-5">
                   <span
                     className="w-2 h-2 rounded-full"
                     style={{ background: section.color }}
                   />
                   <h3
-                    className="text-sm font-bold text-white"
-                    style={{ fontFamily: "Syne, sans-serif" }}
+                    className="text-sm font-bold"
+                    style={{
+                      fontFamily: "Syne, sans-serif",
+                      color: "var(--text-primary)",
+                    }}
                   >
                     {section.title}
                   </h3>
                 </div>
-
                 <div className="flex flex-wrap gap-2">
                   {section.skills.map((skill) => (
                     <span key={skill.title} className="tag">
@@ -369,26 +390,23 @@ export default function AboutPage() {
               href="/skills"
               className="group inline-flex items-center gap-3 px-7 py-3 rounded-2xl relative overflow-hidden"
               style={{
-                background: "#111",
+                background: "var(--bg-card)",
+                border: "1px solid var(--border-strong)",
                 fontFamily: "Syne, sans-serif",
                 fontWeight: 600,
-                color: "#fff",
-                boxShadow: "0 10px 25px rgba(249,115,22,0.25)",
+                color: "var(--text-primary)",
+                boxShadow: "0 10px 25px rgba(249,115,22,0.15)",
               }}
             >
               <span className="relative z-10">View Full Skills Page</span>
-
               <span className="relative z-10 text-lg transition-transform duration-300 group-hover:translate-x-1">
                 →
               </span>
-
-              {/* Shine Effect */}
               <span
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500"
                 style={{
                   background:
-                    "linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.15), transparent 80%)",
-                  transform: "translateX(-100%)",
+                    "linear-gradient(120deg, transparent 20%, rgba(249,115,22,0.1), transparent 80%)",
                 }}
               />
             </Link>

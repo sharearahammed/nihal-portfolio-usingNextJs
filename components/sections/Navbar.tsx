@@ -12,17 +12,156 @@ import {
   HiMail,
   HiDownload,
 } from "react-icons/hi";
-import { FaSun, FaMoon } from "react-icons/fa";
-import { personalInfo } from "@/lib/data";
+import { FaSun, FaMoon, FaDesktop } from "react-icons/fa";
 import Image from "next/image";
+import { Theme, useTheme } from "./ThemeProvider";
 
 const links = [
-  { label: "Home", href: "/", icon: HiHome },
-  { label: "About", href: "/about", icon: HiUser },
-  { label: "Projects", href: "/projects", icon: HiBriefcase },
-  { label: "Skills", href: "/skills", icon: HiLightningBolt },
-  { label: "Contact", href: "/contact", icon: HiMail },
+  { label: "Home",     href: "/",        icon: HiHome },
+  { label: "About",    href: "/about",   icon: HiUser },
+  { label: "Projects", href: "/projects",icon: HiBriefcase },
+  { label: "Skills",   href: "/skills",  icon: HiLightningBolt },
+  { label: "Contact",  href: "/contact", icon: HiMail },
 ];
+
+const themeOptions: { value: Theme; icon: React.ElementType; label: string }[] = [
+  { value: "light",  icon: FaSun,     label: "Light" },
+  { value: "dark",   icon: FaMoon,    label: "Dark" },
+  { value: "system", icon: FaDesktop, label: "Auto" },
+];
+
+/* ================= MOBILE SEGMENTED ================= */
+function MobileThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const [hovered, setHovered] = useState<Theme | null>(null);
+
+  return (
+    <div
+      className="relative flex items-center p-1 rounded-xl border md:hidden"
+      style={{
+        background: "var(--glass-bg)",
+        borderColor: "var(--border-strong)",
+      }}
+    >
+      {/* Active Indicator */}
+      <div
+        className="absolute top-1 bottom-1 w-[36px] rounded-lg transition-all duration-300"
+        style={{
+          background: "rgba(249,115,22,0.15)",
+          transform:
+            theme === "light"
+              ? "translateX(0)"
+              : theme === "dark"
+              ? "translateX(36px)"
+              : "translateX(72px)",
+        }}
+      />
+
+      {themeOptions.map(({ value, icon: Icon }) => {
+        const isActive = theme === value;
+
+        return (
+          <button
+            key={value}
+            onClick={() => setTheme(value)}
+            onMouseEnter={() => setHovered(value)}
+            onMouseLeave={() => setHovered(null)}
+            className="relative z-10 w-[36px] h-[30px] flex items-center justify-center rounded-lg"
+            style={{
+              color: isActive
+                ? "#F97316"
+                : hovered === value
+                ? "var(--text-primary)"
+                : "var(--text-secondary)",
+            }}
+          >
+            <Icon className="text-[11px]" />
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ================= DESKTOP DROPDOWN ================= */
+function DesktopThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const [open, setOpen] = useState(false);
+
+  const current =
+    themeOptions.find((t) => t.value === theme) || themeOptions[1];
+  const Icon = current.icon;
+
+  return (
+    <div className="relative hidden md:block">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-9 h-9 flex items-center justify-center rounded-lg border transition-all"
+        style={{
+          background: "var(--glass-bg)",
+          borderColor: "var(--border-strong)",
+          color: "var(--text-secondary)",
+        }}
+      >
+        <Icon className="text-[14px]" />
+      </button>
+
+      {open && (
+        <>
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setOpen(false)}
+          />
+
+          <div
+            className="absolute right-0 top-11 z-50 rounded-xl overflow-hidden"
+            style={{
+              background: "var(--bg-secondary)",
+              border: "1px solid var(--border-mid)",
+              minWidth: 140,
+            }}
+          >
+            {themeOptions.map(({ value, icon: OptionIcon, label }) => {
+              const active = theme === value;
+
+              return (
+                <button
+                  key={value}
+                  onClick={() => {
+                    setTheme(value);
+                    setOpen(false);
+                  }}
+                  className="w-full flex items-center gap-2 px-3 py-2 text-sm transition-all"
+                  style={{
+                    background: active
+                      ? "rgba(249,115,22,0.08)"
+                      : "transparent",
+                    color: active
+                      ? "#F97316"
+                      : "var(--text-secondary)",
+                  }}
+                >
+                  <OptionIcon className="text-[12px]" />
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+/* ================= MAIN ================= */
+function ThemeToggle() {
+  return (
+    <>
+      <MobileThemeToggle />
+      <DesktopThemeToggle />
+    </>
+  );
+}
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -35,7 +174,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close drawer on route change
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
@@ -43,11 +181,12 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-[#0A0A0A]/90 backdrop-blur-xl border-b border-white/[0.06]"
-            : "bg-[#0A0A0A]"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500`}
+        style={{
+          background: scrolled ? "var(--navbar-bg-scrolled)" : "var(--bg)",
+          borderBottom: scrolled ? "1px solid var(--border)" : "none",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+        }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
           {/* Logo */}
@@ -68,20 +207,28 @@ export default function Navbar() {
               <Link
                 key={l.href}
                 href={l.href}
-                className={`text-sm font-medium transition-colors duration-200 ${
-                  pathname === l.href
-                    ? "text-[#F97316]"
-                    : "text-[#999] hover:text-white"
-                }`}
-                style={{ fontFamily: "Syne, sans-serif" }}
+                className={`text-sm font-medium transition-colors duration-200`}
+                style={{
+                  fontFamily: "Syne, sans-serif",
+                  color: pathname === l.href ? "#F97316" : "var(--text-secondary)",
+                }}
+                onMouseEnter={(e) => {
+                  if (pathname !== l.href)
+                    (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-primary)";
+                }}
+                onMouseLeave={(e) => {
+                  if (pathname !== l.href)
+                    (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-secondary)";
+                }}
               >
                 {l.label}
               </Link>
             ))}
           </nav>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTA + Theme Toggle */}
           <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
             <a
               href="/Resume of Sharear Ahammed Nihal.pdf"
               download="Resume of Sharear Ahammed Nihal.pdf"
@@ -94,14 +241,18 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden text-white text-2xl z-50"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle menu"
-          >
-            {open ? <HiX /> : <HiMenuAlt3 />}
-          </button>
+          {/* Mobile: theme toggle + hamburger */}
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              className="text-2xl z-50"
+              style={{ color: "var(--text-primary)" }}
+              onClick={() => setOpen(!open)}
+              aria-label="Toggle menu"
+            >
+              {open ? <HiX /> : <HiMenuAlt3 />}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -114,13 +265,13 @@ export default function Navbar() {
         />
       )}
 
-      {/* Drawer — right side */}
+      {/* Drawer */}
       <div
         className="fixed top-0 right-0 h-full z-40 md:hidden flex flex-col transition-transform duration-300 ease-in-out"
         style={{
           width: "280px",
-          background: "#111",
-          borderLeft: "1px solid rgba(255,255,255,0.08)",
+          background: "var(--drawer-bg)",
+          borderLeft: "1px solid var(--border-mid)",
           transform: open ? "translateX(0)" : "translateX(100%)",
         }}
       >
@@ -141,8 +292,8 @@ export default function Navbar() {
             </div>
             <div>
               <p
-                className="text-white text-sm font-semibold"
-                style={{ fontFamily: "Syne, sans-serif" }}
+                className="text-sm font-semibold"
+                style={{ fontFamily: "Syne, sans-serif", color: "var(--text-primary)" }}
               >
                 Sharear Ahammed
               </p>
@@ -168,7 +319,7 @@ export default function Navbar() {
                 >
                   <Icon
                     style={{
-                      color: active ? "#F97316" : "#666",
+                      color: active ? "#F97316" : "var(--text-muted)",
                       fontSize: "16px",
                     }}
                   />
@@ -176,7 +327,7 @@ export default function Navbar() {
                     className="text-sm font-medium"
                     style={{
                       fontFamily: "Syne, sans-serif",
-                      color: active ? "#F97316" : "#888",
+                      color: active ? "#F97316" : "var(--text-secondary)",
                     }}
                   >
                     {label}
@@ -189,26 +340,21 @@ export default function Navbar() {
 
         {/* Bottom section */}
         <div className="mt-auto p-6 flex flex-col gap-3">
-          {/* CV Download */}
           <a
             href="/Resume of Sharear Ahammed Nihal.pdf"
             download="Resume of Sharear Ahammed Nihal.pdf"
-            className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium text-[#888] hover:text-white transition-colors"
+            className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium transition-colors"
             style={{
               fontFamily: "Syne, sans-serif",
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.07)",
+              background: "var(--glass-bg)",
+              border: "1px solid var(--border-soft)",
+              color: "var(--text-secondary)",
             }}
           >
             <HiDownload style={{ fontSize: "16px" }} />
             Download CV
           </a>
-
-          {/* Hire Me */}
-          <Link
-            href="/contact"
-            className="btn-brand text-sm py-3 justify-center"
-          >
+          <Link href="/contact" className="btn-brand text-sm py-3 justify-center">
             Hire Me
           </Link>
         </div>

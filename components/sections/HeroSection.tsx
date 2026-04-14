@@ -177,7 +177,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="text-[#666] text-sm leading-relaxed max-w-md mb-10"
+              className="text-[#888] text-sm leading-relaxed max-w-md mb-10"
             >
               Crafting beautiful, responsive web experiences with React &
               Next.js. 1+ year of professional experience at Fly Far Tech. CSE
@@ -216,7 +216,7 @@ export default function HeroSection() {
               className="flex items-center gap-6"
             >
               <span
-                className="text-xs text-[#444]"
+                className="text-xs text-[#666]"
                 style={{
                   fontFamily: "Syne, sans-serif",
                   letterSpacing: "0.15em",

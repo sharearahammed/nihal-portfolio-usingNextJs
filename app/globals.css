@@ -4,31 +4,91 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --brand: #F97316;
-  --brand-glow: rgba(249,115,22,0.25);
+/* ── Theme CSS Variables ───────────────────────────────────────────────── */
+
+:root,
+[data-theme="dark"] {
+  --brand:          #F97316;
+  --brand-glow:     rgba(249,115,22,0.25);
+
+  --bg:             #0A0A0A;
+  --bg-secondary:   #111111;
+  --bg-card:        #1A1A1A;
+
+  --text-primary:   #FFFFFF;
+  --text-secondary: #888888;
+  --text-muted:     #555555;
+  --text-faint:     #444444;
+
+  --border:         rgba(255,255,255,0.06);
+  --border-soft:    rgba(255,255,255,0.07);
+  --border-mid:     rgba(255,255,255,0.08);
+  --border-strong:  rgba(255,255,255,0.15);
+
+  --glass-bg:       rgba(255,255,255,0.03);
+  --dots-color:     rgba(255,255,255,0.04);
+
+  --scrollbar-track: #0A0A0A;
+  --scrollbar-thumb: #F97316;
+
+  --navbar-bg-scrolled: rgba(10,10,10,0.90);
+  --drawer-bg:          #111111;
 }
+
+[data-theme="light"] {
+  --brand:          #F97316;
+  --brand-glow:     rgba(249,115,22,0.18);
+
+  --bg:             #F8F5F2;
+  --bg-secondary:   #FFFFFF;
+  --bg-card:        #FFFFFF;
+
+  --text-primary:   #111111;
+  --text-secondary: #555555;
+  --text-muted:     #888888;
+  --text-faint:     #AAAAAA;
+
+  --border:         rgba(0,0,0,0.07);
+  --border-soft:    rgba(0,0,0,0.07);
+  --border-mid:     rgba(0,0,0,0.10);
+  --border-strong:  rgba(0,0,0,0.18);
+
+  --glass-bg:       rgba(255,255,255,0.75);
+  --dots-color:     rgba(0,0,0,0.05);
+
+  --scrollbar-track: #F8F5F2;
+  --scrollbar-thumb: #F97316;
+
+  --navbar-bg-scrolled: rgba(248,245,242,0.92);
+  --drawer-bg:          #FFFFFF;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
-  background: #0A0A0A;
-  color: #FFFFFF;
+  background: var(--bg);
+  color: var(--text-primary);
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #0A0A0A; }
-::-webkit-scrollbar-thumb { background: #F97316; border-radius: 4px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
 
 .font-display { font-family: 'Syne', sans-serif; }
 
+/* ── Utility classes (use CSS vars instead of hardcoded colors) ────────── */
+
 .glass-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
+  background: var(--glass-bg);
+  border: 1px solid var(--border-soft);
+  backdrop-filter: blur(16px);
 }
 
 .gradient-border {
@@ -71,10 +131,10 @@ body {
 
 .btn-outline {
   background: transparent;
-  color: white;
+  color: var(--text-primary);
   padding: 11px 24px;
   border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.15);
+  border: 1px solid var(--border-strong);
   font-family: 'Syne', sans-serif;
   font-weight: 500;
   font-size: 14px;
@@ -103,13 +163,13 @@ body {
   font-weight: 500;
   padding: 3px 10px;
   border-radius: 4px;
-  background: rgba(255,255,255,0.05);
-  color: #999;
-  border: 1px solid rgba(255,255,255,0.07);
+  background: var(--glass-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-soft);
 }
 
 .dots-bg {
-  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-image: radial-gradient(var(--dots-color) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 

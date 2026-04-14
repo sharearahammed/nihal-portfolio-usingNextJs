@@ -22,7 +22,7 @@ export default function AboutPreview() {
             {/* Main image */}
             <div
               className="relative gradient-border overflow-hidden"
-              style={{ borderRadius: "16px", background: "#111" }}
+              style={{ borderRadius: "16px", background: "var(--bg-card)" }}
             >
               <div className="relative w-full h-[320px] sm:h-[400px] md:h-[480px]">
                 <Image
@@ -105,7 +105,7 @@ export default function AboutPreview() {
             <p className="text-[#888] text-sm leading-relaxed mb-4">
               {personalInfo.bio}
             </p>
-            <p className="text-[#666] text-sm leading-relaxed mb-10">
+            <p className="text-[#888] text-sm leading-relaxed mb-10">
               Passionate about turning complex problems into elegant,
               user-friendly web solutions. I thrive in collaborative
               environments and am always eager to learn cutting-edge

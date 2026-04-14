@@ -17,7 +17,7 @@
       text-anchor="middle" dominant-baseline="middle"
       font-family="'Syne','Segoe UI',sans-serif"
       font-size="52" font-weight="700"
-      fill="#FFFFFF" letter-spacing="-2">S</text>
+      fill="#999" letter-spacing="-2">S</text>
 
     <!-- dot after S -->
     <circle cx="-38" cy="8" r="4" fill="#F97316"/>
@@ -37,7 +37,7 @@
       text-anchor="middle" dominant-baseline="middle"
       font-family="'Syne','Segoe UI',sans-serif"
       font-size="20" font-weight="700"
-      fill="#FFFFFF" letter-spacing="5">NIHAL</text>
+      fill="#999" letter-spacing="5">NIHAL</text>
 
   </g>
 </svg>

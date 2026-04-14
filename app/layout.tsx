@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
 import { Toaster } from "react-hot-toast";
+import PageLoader from "@/components/sections/PageLoader";
+import { ThemeProvider } from "@/components/sections/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Sharear Ahammed Nihal | Full Stack Developer",
@@ -25,10 +27,6 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: "/favicon.ico",
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0A0A0A" },
-    { media: "(prefers-color-scheme: light)", color: "#0A0A0A" },
-  ],
 };
 
 export default function RootLayout({
@@ -37,31 +35,52 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#0A0A0A" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta
           name="apple-mobile-web-app-status-bar-style"
           content="black-translucent"
         />
-      </head>
-      <body>
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            style: {
-              background: "#111",
-              color: "#fff",
-              border: "1px solid rgba(255,255,255,0.1)",
-              borderRadius: "8px",
-              fontFamily: "Inter, sans-serif",
-            },
+        {/* Anti-flicker: apply theme before first paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var stored = localStorage.getItem('portfolio_theme') || 'dark';
+                  var resolved;
+                  if (stored === 'system') {
+                    resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  } else {
+                    resolved = stored;
+                  }
+                  document.documentElement.setAttribute('data-theme', resolved);
+                } catch(e) {}
+              })();
+            `,
           }}
         />
+      </head>
+      <body>
+        <ThemeProvider>
+          <PageLoader />
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              style: {
+                background: "var(--bg-secondary)",
+                color: "var(--text-primary)",
+                border: "1px solid var(--border-soft)",
+                borderRadius: "8px",
+                fontFamily: "Inter, sans-serif",
+              },
+            }}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );
