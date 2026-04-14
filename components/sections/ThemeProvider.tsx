@@ -30,6 +30,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setThemeState(stored);
   }, []);
 
+  useEffect(() => {
+  const theme = document.documentElement.getAttribute("data-theme");
+
+  const color =
+    theme === "light" ? "#F8F5F2" : "#0A0A0A";
+
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute("content", color);
+}, []);
+
   // Apply theme to <html> whenever theme changes
   useEffect(() => {
     function applyTheme(t: Theme) {
