@@ -16,7 +16,9 @@ export default function PageLoader() {
     // Check if this is a reload or a fresh visit
     // navEntry.type === "reload"   → user pressed F5 / Ctrl+R → skip loader
     // navEntry.type === "navigate" → user typed URL or clicked link → show loader
-    const navEntry = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    const navEntry = performance.getEntriesByType("navigation")[0] as
+      | PerformanceNavigationTiming
+      | undefined;
     const isReload = navEntry?.type === "reload";
 
     if (isReload) return;
@@ -44,27 +46,33 @@ export default function PageLoader() {
 
     // ── Chip data ──────────────────────────────────────────────────────────
     const inner = [
-      { sym: "TS",  sub: "typescript", cls: "ts ic", r: 88,  a: 270 },
-      { sym: "⚛",   sub: "react",      cls: "re ic", r: 88,  a: 0   },
-      { sym: "N▲",  sub: "next.js",    cls: "nx ic", r: 88,  a: 90  },
-      { sym: "⬡",   sub: "node",       cls: "nd ic", r: 88,  a: 180 },
+      { sym: "TS", sub: "typescript", cls: "ts ic", r: 88, a: 270 },
+      { sym: "⚛", sub: "react", cls: "re ic", r: 88, a: 0 },
+      { sym: "N▲", sub: "next.js", cls: "nx ic", r: 88, a: 90 },
+      { sym: "⬡", sub: "node", cls: "nd ic", r: 88, a: 180 },
     ];
     const outer = [
-      { sym: "EX",  sub: "express",    cls: "ex oc", r: 136, a: 18  },
-      { sym: "◈",   sub: "redux",      cls: "rx oc", r: 136, a: 90  },
-      { sym: "M",   sub: "mongodb",    cls: "mg oc", r: 136, a: 162 },
-      { sym: "▲",   sub: "prisma",     cls: "pr oc", r: 136, a: 234 },
-      { sym: "PG",  sub: "postgres",   cls: "pg oc", r: 136, a: 306 },
+      { sym: "EX", sub: "express", cls: "ex oc", r: 136, a: 18 },
+      { sym: "◈", sub: "redux", cls: "rx oc", r: 136, a: 90 },
+      { sym: "M", sub: "mongodb", cls: "mg oc", r: 136, a: 162 },
+      { sym: "▲", sub: "prisma", cls: "pr oc", r: 136, a: 234 },
+      { sym: "PG", sub: "postgres", cls: "pg oc", r: 136, a: 306 },
     ];
 
-    type ChipData = typeof inner[number];
+    type ChipData = (typeof inner)[number];
+
+    if (!layer) return;
 
     function mkChip(d: ChipData) {
+      if (!layer) return;
+
       const el = document.createElement("div");
       el.className = "pl-chip " + d.cls;
       el.innerHTML = `<span class="pl-chip-sym">${d.sym}</span><span class="pl-chip-sub">${d.sub}</span>`;
+
       const half = d.cls.includes("oc") ? -22 : -25;
       el.style.cssText = `position:absolute;top:50%;left:50%;margin-left:${half}px;margin-top:${half}px;`;
+
       layer.appendChild(el);
       return el;
     }
@@ -80,49 +88,98 @@ export default function PageLoader() {
     let t = 0;
 
     function tick() {
-      t += 0.25;
-      const ir = t * 0.35;
-      const or = -t * 0.22;
+  t += 0.25;
 
-      iEls.forEach(({ el, d }) => {
-        const a = toR(d.a + ir);
-        const x = Math.cos(a) * d.r;
-        const y = Math.sin(a) * d.r;
-        el.style.transform = `translate(${x}px,${y}px)`;
-      });
-      oEls.forEach(({ el, d }) => {
-        const a = toR(d.a + or);
-        const x = Math.cos(a) * d.r;
-        const y = Math.sin(a) * d.r;
-        el.style.transform = `translate(${x}px,${y}px)`;
-      });
+  const ir = t * 0.35;
+  const or = -t * 0.22;
 
-      if (sp1) {
-        const a1 = toR(90 + ir * 1.5);
-        sp1.setAttribute("cx", String(160 + Math.cos(a1) * 88));
-        sp1.setAttribute("cy", String(160 + Math.sin(a1) * 88));
-      }
-      if (sp2) {
-        const a2 = toR(270 + or * 1.2);
-        sp2.setAttribute("cx", String(160 + Math.cos(a2) * 136));
-        sp2.setAttribute("cy", String(160 + Math.sin(a2) * 136));
-      }
-      if (sp3) {
-        const a3 = toR(180 + ir * 0.9);
-        sp3.setAttribute("cx", String(160 + Math.cos(a3) * 56));
-        sp3.setAttribute("cy", String(160 + Math.sin(a3) * 56));
-      }
+  // ================= INNER ELEMENTS =================
+  iEls.forEach(({ el, d }) => {
+    if (!el) return;
 
-      const id = requestAnimationFrame(tick);
-      animFrames.current.push(id);
-    }
+    const a = toR(d.a + ir);
+    const x = Math.cos(a) * d.r;
+    const y = Math.sin(a) * d.r;
+
+    el.style.transform = `translate(${x}px, ${y}px)`;
+  });
+
+  // ================= OUTER ELEMENTS =================
+  oEls.forEach(({ el, d }) => {
+    if (!el) return;
+
+    const a = toR(d.a + or);
+    const x = Math.cos(a) * d.r;
+    const y = Math.sin(a) * d.r;
+
+    el.style.transform = `translate(${x}px, ${y}px)`;
+  });
+
+  // ================= SPOT 1 =================
+  if (sp1) {
+    const a1 = toR(90 + ir * 1.5);
+
+    sp1.setAttribute(
+      "cx",
+      String(160 + Math.cos(a1) * 88)
+    );
+
+    sp1.setAttribute(
+      "cy",
+      String(160 + Math.sin(a1) * 88)
+    );
+  }
+
+  // ================= SPOT 2 =================
+  if (sp2) {
+    const a2 = toR(270 + or * 1.2);
+
+    sp2.setAttribute(
+      "cx",
+      String(160 + Math.cos(a2) * 136)
+    );
+
+    sp2.setAttribute(
+      "cy",
+      String(160 + Math.sin(a2) * 136)
+    );
+  }
+
+  // ================= SPOT 3 =================
+  if (sp3) {
+    const a3 = toR(180 + ir * 0.9);
+
+    sp3.setAttribute(
+      "cx",
+      String(160 + Math.cos(a3) * 56)
+    );
+
+    sp3.setAttribute(
+      "cy",
+      String(160 + Math.sin(a3) * 56)
+    );
+  }
+
+  const id = requestAnimationFrame(tick);
+  animFrames.current.push(id);
+}
     tick();
 
     // ── Particle canvas ────────────────────────────────────────────────────
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    const W = 320, H = 320;
-    const cols = ["#3178C6","#61DAFB","#5fa04e","#764abc","#13aa52","#336791","#e0e0e0","#5898c4"];
+    const W = 320,
+      H = 320;
+    const cols = [
+      "#3178C6",
+      "#61DAFB",
+      "#5fa04e",
+      "#764abc",
+      "#13aa52",
+      "#336791",
+      "#e0e0e0",
+      "#5898c4",
+    ];
 
     const stars = Array.from({ length: 55 }, () => ({
       x: Math.random() * W,
@@ -141,7 +198,8 @@ export default function PageLoader() {
         const si = stars[i];
         for (let j = i + 1; j < stars.length; j++) {
           const sj = stars[j];
-          const dx = si.x - sj.x, dy = si.y - sj.y;
+          const dx = si.x - sj.x,
+            dy = si.y - sj.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 60) {
             ctx!.strokeStyle = si.col;
@@ -156,16 +214,23 @@ export default function PageLoader() {
       }
       stars.forEach((s) => {
         s.life++;
-        if (s.life > s.max) { s.life = 0; s.x = Math.random() * W; s.y = Math.random() * H; }
+        if (s.life > s.max) {
+          s.life = 0;
+          s.x = Math.random() * W;
+          s.y = Math.random() * H;
+        }
         const fade = Math.sin((s.life / s.max) * Math.PI);
         ctx!.globalAlpha = fade * 0.65;
         ctx!.beginPath();
         ctx!.arc(s.x, s.y, s.r, 0, Math.PI * 2);
         ctx!.fillStyle = s.col;
         ctx!.fill();
-        s.x += s.vx; s.y += s.vy;
-        if (s.x < 0) s.x = W; if (s.x > W) s.x = 0;
-        if (s.y < 0) s.y = H; if (s.y > H) s.y = 0;
+        s.x += s.vx;
+        s.y += s.vy;
+        if (s.x < 0) s.x = W;
+        if (s.x > W) s.x = 0;
+        if (s.y < 0) s.y = H;
+        if (s.y > H) s.y = 0;
       });
       ctx!.globalAlpha = 1;
       const id = requestAnimationFrame(drawStars);
@@ -174,7 +239,15 @@ export default function PageLoader() {
     drawStars();
 
     // ── Status messages ────────────────────────────────────────────────────
-    const msgs = ["initializing...","loading modules...","connecting db...","compiling tsx...","bundling...","almost ready...","serving app..."];
+    const msgs = [
+      "initializing...",
+      "loading modules...",
+      "connecting db...",
+      "compiling tsx...",
+      "bundling...",
+      "almost ready...",
+      "serving app...",
+    ];
     let mi = 0;
     const iv = setInterval(() => {
       mi = (mi + 1) % msgs.length;
@@ -275,16 +348,72 @@ export default function PageLoader() {
       >
         <div className="pl-scene">
           <div className="pl-arena">
-            <canvas ref={canvasRef} className="pl-fx" width={320} height={320} />
+            <canvas
+              ref={canvasRef}
+              className="pl-fx"
+              width={320}
+              height={320}
+            />
 
             <svg ref={svgRef} className="pl-rings-svg" viewBox="0 0 320 320">
-              <circle cx="160" cy="160" r="88"  fill="none" stroke="rgba(97,218,251,0.1)"  strokeWidth="1" strokeDasharray="4 6"/>
-              <circle cx="160" cy="160" r="136" fill="none" stroke="rgba(118,74,188,0.1)"  strokeWidth="1" strokeDasharray="3 8"/>
-              <circle cx="160" cy="160" r="56"  fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1"/>
-              <circle cx="160" cy="160" r="160" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="1"/>
-              <circle id="pl-spark1" cx="160" cy="72"  r="3.5" fill="#61DAFB" opacity="0.9"/>
-              <circle id="pl-spark2" cx="296" cy="160" r="3"   fill="#764abc" opacity="0.8"/>
-              <circle id="pl-spark3" cx="160" cy="24"  r="2.5" fill="#5fa04e" opacity="0.7"/>
+              <circle
+                cx="160"
+                cy="160"
+                r="88"
+                fill="none"
+                stroke="rgba(97,218,251,0.1)"
+                strokeWidth="1"
+                strokeDasharray="4 6"
+              />
+              <circle
+                cx="160"
+                cy="160"
+                r="136"
+                fill="none"
+                stroke="rgba(118,74,188,0.1)"
+                strokeWidth="1"
+                strokeDasharray="3 8"
+              />
+              <circle
+                cx="160"
+                cy="160"
+                r="56"
+                fill="none"
+                stroke="rgba(255,255,255,0.04)"
+                strokeWidth="1"
+              />
+              <circle
+                cx="160"
+                cy="160"
+                r="160"
+                fill="none"
+                stroke="rgba(255,255,255,0.03)"
+                strokeWidth="1"
+              />
+              <circle
+                id="pl-spark1"
+                cx="160"
+                cy="72"
+                r="3.5"
+                fill="#61DAFB"
+                opacity="0.9"
+              />
+              <circle
+                id="pl-spark2"
+                cx="296"
+                cy="160"
+                r="3"
+                fill="#764abc"
+                opacity="0.8"
+              />
+              <circle
+                id="pl-spark3"
+                cx="160"
+                cy="24"
+                r="2.5"
+                fill="#5fa04e"
+                opacity="0.7"
+              />
             </svg>
 
             <div ref={chipsRef} className="pl-chips-layer" />
@@ -296,7 +425,9 @@ export default function PageLoader() {
                 <div className="pl-hub-spin1" />
                 <div className="pl-hub-spin2" />
                 <div className="pl-hub-spin3" />
-                <div className="pl-hub-core"><div className="pl-hub-dot" /></div>
+                <div className="pl-hub-core">
+                  <div className="pl-hub-dot" />
+                </div>
               </div>
             </div>
           </div>
@@ -304,17 +435,75 @@ export default function PageLoader() {
           <div className="pl-bottom">
             <div className="pl-tags">
               {[
-                { label:"TypeScript", bg:"#060f1c", bc:"#3178C6", col:"#4d94e8", dot:"#3178C6" },
-                { label:"React",      bg:"#030d17", bc:"#61DAFB", col:"#61DAFB", dot:"#61DAFB" },
-                { label:"Next.js",    bg:"#080808", bc:"#c0c0c0", col:"#c0c0c0", dot:"#c0c0c0" },
-                { label:"Node.js",    bg:"#04100a", bc:"#5fa04e", col:"#5fa04e", dot:"#5fa04e" },
-                { label:"Express",    bg:"#0e0e0e", bc:"#999",    col:"#bbb",    dot:"#999"    },
-                { label:"Redux",      bg:"#0c061a", bc:"#764abc", col:"#a07ae0", dot:"#764abc" },
-                { label:"MongoDB",    bg:"#030c05", bc:"#13aa52", col:"#13aa52", dot:"#13aa52" },
-                { label:"Prisma",     bg:"#040810", bc:"#4f7ab5", col:"#8ab4e0", dot:"#4f7ab5" },
-                { label:"PostgreSQL", bg:"#040e1d", bc:"#336791", col:"#5898c4", dot:"#336791" },
+                {
+                  label: "TypeScript",
+                  bg: "#060f1c",
+                  bc: "#3178C6",
+                  col: "#4d94e8",
+                  dot: "#3178C6",
+                },
+                {
+                  label: "React",
+                  bg: "#030d17",
+                  bc: "#61DAFB",
+                  col: "#61DAFB",
+                  dot: "#61DAFB",
+                },
+                {
+                  label: "Next.js",
+                  bg: "#080808",
+                  bc: "#c0c0c0",
+                  col: "#c0c0c0",
+                  dot: "#c0c0c0",
+                },
+                {
+                  label: "Node.js",
+                  bg: "#04100a",
+                  bc: "#5fa04e",
+                  col: "#5fa04e",
+                  dot: "#5fa04e",
+                },
+                {
+                  label: "Express",
+                  bg: "#0e0e0e",
+                  bc: "#999",
+                  col: "#bbb",
+                  dot: "#999",
+                },
+                {
+                  label: "Redux",
+                  bg: "#0c061a",
+                  bc: "#764abc",
+                  col: "#a07ae0",
+                  dot: "#764abc",
+                },
+                {
+                  label: "MongoDB",
+                  bg: "#030c05",
+                  bc: "#13aa52",
+                  col: "#13aa52",
+                  dot: "#13aa52",
+                },
+                {
+                  label: "Prisma",
+                  bg: "#040810",
+                  bc: "#4f7ab5",
+                  col: "#8ab4e0",
+                  dot: "#4f7ab5",
+                },
+                {
+                  label: "PostgreSQL",
+                  bg: "#040e1d",
+                  bc: "#336791",
+                  col: "#5898c4",
+                  dot: "#336791",
+                },
               ].map((t) => (
-                <span key={t.label} className="pl-tag" style={{ background: t.bg, borderColor: t.bc, color: t.col }}>
+                <span
+                  key={t.label}
+                  className="pl-tag"
+                  style={{ background: t.bg, borderColor: t.bc, color: t.col }}
+                >
                   <span className="pl-tdot" style={{ background: t.dot }} />
                   {t.label}
                 </span>
@@ -325,7 +514,9 @@ export default function PageLoader() {
               <div className="pl-progbar">
                 <div className="pl-progfill" />
               </div>
-              <p ref={ptRef} className="pl-progtext">initializing...</p>
+              <p ref={ptRef} className="pl-progtext">
+                initializing...
+              </p>
             </div>
           </div>
         </div>
