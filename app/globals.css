@@ -4,6 +4,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Lenis smooth scroll ──────────────────────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 /* ── Theme CSS Variables ───────────────────────────────────────────────── */
 
 :root,
@@ -66,7 +84,9 @@
 /* ── Base ─────────────────────────────────────────────────────────────── */
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+
+/* Remove native smooth scroll — Lenis handles it */
+html { scroll-behavior: auto; }
 
 body {
   background: var(--bg);
@@ -83,7 +103,7 @@ body {
 
 .font-display { font-family: 'Syne', sans-serif; }
 
-/* ── Utility classes (use CSS vars instead of hardcoded colors) ────────── */
+/* ── Utilities ────────────────────────────────────────────────────────── */
 
 .glass-card {
   background: var(--glass-bg);
@@ -91,9 +111,7 @@ body {
   backdrop-filter: blur(16px);
 }
 
-.gradient-border {
-  position: relative;
-}
+.gradient-border { position: relative; }
 .gradient-border::before {
   content: '';
   position: absolute;
@@ -107,7 +125,6 @@ body {
   mask-composite: exclude;
   pointer-events: none;
 }
-
 
 .btn-brand {
   background: #F97316;
