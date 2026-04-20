@@ -14,8 +14,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SECTIONS = [
   { id: "hero", Component: HeroSection },
-  { id: "experience", Component: ExperienceSection },
   { id: "about", Component: AboutPreview },
+  { id: "experience", Component: ExperienceSection },
   { id: "projects", Component: ProjectsPreview },
   { id: "skills", Component: SkillsMarquee },
   { id: "contact", Component: CTASection },
@@ -75,7 +75,8 @@ export default function HomePage() {
         ScrollTrigger.create({
           trigger: document.body,
           start: () => `${window.innerHeight * getSlotStart(i)} top`,
-          end: () => `${window.innerHeight * (getSlotStart(i) + (isExp ? 2 : 1))} top`,
+          end: () =>
+            `${window.innerHeight * (getSlotStart(i) + (isExp ? 2 : 1))} top`,
           scrub: 1.5,
           onUpdate(self) {
             const p = self.progress;
@@ -98,10 +99,19 @@ export default function HomePage() {
                 gsap.set(nextPanel, { yPercent: yPct });
                 nextPanel.style.visibility = "visible";
 
-                const scale = gsap.utils.interpolate(1, ZOOM_OUT_SCALE, slideProgress);
-                const opacity = gsap.utils.interpolate(1, ZOOM_OUT_OPACITY, slideProgress);
+                const scale = gsap.utils.interpolate(
+                  1,
+                  ZOOM_OUT_SCALE,
+                  slideProgress,
+                );
+                const opacity = gsap.utils.interpolate(
+                  1,
+                  ZOOM_OUT_OPACITY,
+                  slideProgress,
+                );
                 gsap.set(prevPanel, { scale, opacity });
-                prevPanel.style.visibility = slideProgress >= 0.99 ? "hidden" : "visible";
+                prevPanel.style.visibility =
+                  slideProgress >= 0.99 ? "hidden" : "visible";
               }
             } else {
               const yPct = gsap.utils.interpolate(100, 0, p);
@@ -131,7 +141,9 @@ export default function HomePage() {
             prevPanel.style.visibility = "visible";
             // experience panel-এ ফিরলে scroll reset করো
             if (i === expIndex) {
-              (prevPanel as HTMLElement).scrollTop = (prevPanel as HTMLElement).scrollHeight - (prevPanel as HTMLElement).clientHeight;
+              (prevPanel as HTMLElement).scrollTop =
+                (prevPanel as HTMLElement).scrollHeight -
+                (prevPanel as HTMLElement).clientHeight;
             }
           },
         });
