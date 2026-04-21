@@ -56,7 +56,7 @@ export default function ExperienceSection() {
     const observe = (
       el: Element | null,
       onVisible: () => void,
-      threshold = 0.1,
+      threshold = 0.1
     ) => {
       if (!el) return;
       const obs = new IntersectionObserver(
@@ -68,13 +68,12 @@ export default function ExperienceSection() {
             }
           });
         },
-        { root, threshold },
+        { root, threshold }
       );
       obs.observe(el);
       observers.push(obs);
     };
 
-    // Spine draw animation
     if (spineRef.current) {
       gsap.set(spineRef.current, { scaleY: 0, transformOrigin: "top center" });
       observe(
@@ -86,11 +85,10 @@ export default function ExperienceSection() {
             ease: "power2.out",
           });
         },
-        0.05,
+        0.05
       );
     }
 
-    // Header items
     const headerItems =
       sectionRef.current?.querySelectorAll(".exp-header-item") ?? [];
     headerItems.forEach((el) => gsap.set(el, { y: 32, opacity: 0 }));
@@ -106,11 +104,10 @@ export default function ExperienceSection() {
             ease: "power3.out",
           });
         },
-        0.1,
+        0.1
       );
     }
 
-    // Cards
     const cards = sectionRef.current?.querySelectorAll(".exp-card") ?? [];
     cards.forEach((card) => {
       const isLeft = card.classList.contains("exp-card-left");
@@ -125,11 +122,10 @@ export default function ExperienceSection() {
             ease: "power3.out",
           });
         },
-        0.1,
+        0.1
       );
     });
 
-    // Dots
     const dots = sectionRef.current?.querySelectorAll(".tl-dot") ?? [];
     dots.forEach((dot, i) => {
       gsap.set(dot, { scale: 0, opacity: 0 });
@@ -144,7 +140,7 @@ export default function ExperienceSection() {
             ease: "back.out(2)",
           });
         },
-        0.5,
+        0.5
       );
     });
 
@@ -152,356 +148,405 @@ export default function ExperienceSection() {
   }, []);
 
   return (
-    <section
-      className="max-w-7xl mx-auto px-6 lg:px-10"
-      ref={sectionRef}
-      style={{
-        padding: "80px 48px 100px",
-        borderTop: "1px solid var(--border)",
-        position: "relative",
-        fontFamily: "var(--font-body, DM Sans, sans-serif)",
-      }}
-    >
-      {/* Header */}
-      <div style={{ marginBottom: 64 }}>
-        <span
-          className="exp-header-item"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-            fontFamily: "var(--font-body, DM Sans, sans-serif)",
-            fontSize: 11,
-            fontWeight: 400,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "var(--brand)",
-            marginBottom: 20,
-          }}
-        >
-          <span
-            style={{
-              display: "block",
-              width: 20,
-              height: 1,
-              background: "var(--brand)",
-            }}
-          />
-          Career Journey
-        </span>
+    <>
+      <style>{`
+        /* ── Spine ── */
+        .tl-spine-bg {
+          position: absolute;
+          left: 50%;
+          top: 0;
+          bottom: 0;
+          width: 1px;
+          transform: translateX(-50%);
+          background: rgba(255,255,255,0.2);
+        }
 
-        <h2
-          className="exp-header-item"
-          style={{
-            fontFamily: "Syne, sans-serif",
-            fontSize: "clamp(36px, 5vw, 52px)",
-            fontWeight: 800,
-            lineHeight: 1.05,
-            color: "var(--text-primary)",
-            letterSpacing: "-0.02em",
-            margin: "0 0 16px",
-          }}
-        >
-          Experience that{" "}
-          <em style={{ fontStyle: "italic", fontWeight: 600, opacity: 0.4 }}>
-            speaks volumes.
-          </em>
-        </h2>
+        /* ── Desktop row grid ── */
+        .tl-row {
+          display: grid;
+          grid-template-columns: 1fr 40px 1fr;
+          align-items: center;
+        }
+        .tl-col-left {
+          display: flex;
+          justify-content: flex-end;
+          padding-right: 28px;
+        }
+        .tl-col-right {
+          display: flex;
+          justify-content: flex-start;
+          padding-left: 28px;
+        }
+        .tl-col-center {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          z-index: 2;
+        }
 
-        <p
-          className="exp-header-item"
-          style={{
-            fontFamily: "var(--font-body, DM Sans, sans-serif)",
-            fontSize: 14,
-            fontWeight: 300,
-            lineHeight: 1.8,
-            color: "var(--text-muted)",
-            maxWidth: 420,
-            margin: 0,
-          }}
-        >
-          A timeline of professional growth — from curious builder to full-stack
-          engineer shipping real products.
-        </p>
-      </div>
+        /* ── Card base ── */
+        .exp-card {
+          background: rgba(255,255,255,0.03);
+          backdrop-filter: blur(12px);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 20px;
+          padding: 26px 28px;
+          width: 100%;
+          max-width: 380px;
+          position: relative;
+          transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+          box-sizing: border-box;
+        }
+        .exp-card:hover {
+          transform: translateY(-6px) scale(1.02);
+          border-color: var(--brand);
+          box-shadow: 0 20px 50px rgba(249,115,22,0.25);
+        }
 
-      {/* Timeline */}
-      <div
+        /* ── Tablet + Mobile: single column ── */
+        @media (max-width: 860px) {
+          .exp-section {
+            padding: 64px 24px 80px !important;
+          }
+          .tl-spine-bg {
+            left: 16px;
+            transform: none;
+          }
+          .tl-rows {
+            padding-left: 44px;
+          }
+          .tl-row {
+            display: block;
+            position: relative;
+          }
+          .tl-col-left,
+          .tl-col-right {
+            display: block;
+            padding: 0;
+          }
+          .tl-col-center {
+            position: absolute;
+            left: -32.5px;
+            top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .tl-date-label-only {
+            display: none !important;
+          }
+          .exp-card {
+            max-width: 100% !important;
+          }
+        }
+
+        /* ── Mobile only ── */
+        @media (max-width: 640px) {
+          .exp-section {
+            padding: 48px 16px 72px !important;
+          }
+          .tl-spine-bg {
+            left: 16px;
+          }
+          .tl-rows {
+            padding-left: 44px;
+            gap: 32px !important;
+          }
+          .tl-col-center {
+            left: -32.52px;
+            top: 20px;
+          }
+          .exp-card {
+            padding: 20px 18px !important;
+            border-radius: 14px !important;
+          }
+          .exp-card-role {
+            font-size: 16px !important;
+          }
+          .exp-header-h2 {
+            font-size: clamp(28px, 8vw, 40px) !important;
+          }
+        }
+      `}</style>
+
+      <section
+        className="exp-section"
+        ref={sectionRef}
         style={{
+          padding: "80px 48px 100px",
+          borderTop: "1px solid var(--border)",
           position: "relative",
-          maxWidth: 860,
-          margin: "0 auto",
+          fontFamily: "var(--font-body, DM Sans, sans-serif)",
         }}
       >
-        {/* Spine */}
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: 0,
-            bottom: 0,
-            width: 1,
-            transform: "translateX(-50%)",
-            background: "var(--border-mid)",
-          }}
-        >
-          <div
-            ref={spineRef}
+        {/* Header */}
+        <div style={{ marginBottom: 64 }}>
+          <span
+            className="exp-header-item"
             style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(to bottom, var(--brand) 0%, var(--brand-glow) 60%, transparent 100%)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              fontSize: 11,
+              fontWeight: 400,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "var(--brand)",
+              marginBottom: 20,
             }}
-          />
+          >
+            <span
+              style={{
+                display: "block",
+                width: 20,
+                height: 1,
+                background: "var(--brand)",
+              }}
+            />
+            Career Journey
+          </span>
+
+          <h2
+            className="exp-header-item exp-header-h2"
+            style={{
+              fontFamily: "Syne, sans-serif",
+              fontSize: "clamp(36px, 5vw, 52px)",
+              fontWeight: 800,
+              lineHeight: 1.05,
+              color: "var(--text-primary)",
+              letterSpacing: "-0.02em",
+              margin: "0 0 16px",
+            }}
+          >
+            Experience that{" "}
+            <em style={{ fontStyle: "italic", fontWeight: 600, opacity: 0.4 }}>
+              speaks volumes.
+            </em>
+          </h2>
+
+          <p
+            className="exp-header-item"
+            style={{
+              fontSize: 14,
+              fontWeight: 300,
+              lineHeight: 1.8,
+              color: "var(--text-muted)",
+              maxWidth: 420,
+              margin: 0,
+            }}
+          >
+            A timeline of professional growth — from curious builder to
+            full-stack engineer shipping real products.
+          </p>
         </div>
 
-        {/* Rows */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 52 }}>
-          {experiences.map((exp, i) => {
-            const isLeft = exp.side === "left";
+        {/* Timeline */}
+        <div className="tl-wrap" style={{ position: "relative", maxWidth: 860, margin: "0 auto" }}>
+          {/* Spine */}
+          <div className="tl-spine-bg">
+            <div
+              ref={spineRef}
+              style={{
+                position: "absolute",
+                inset: 0,
+                background:
+                  "linear-gradient(to bottom, var(--brand) 0%, var(--brand-glow) 60%, transparent 100%)",
+              }}
+            />
+          </div>
 
-            const CardContent = () => (
-              <div
-                className={`exp-card ${isLeft ? "exp-card-left" : "exp-card-right"}`}
-                style={{
-                  background: "rgba(255,255,255,0.03)",
-                  backdropFilter: "blur(12px)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: 20,
-                  padding: "26px 28px",
-                  width: "100%",
-                  maxWidth: 380,
-                  position: "relative",
-                  transition: "all 0.35s ease",
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget;
-                  el.style.transform = "translateY(-6px) scale(1.02)";
-                  el.style.borderColor = "var(--brand)";
-                  el.style.boxShadow = "0 20px 50px rgba(249,115,22,0.25)";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget;
-                  el.style.transform = "translateY(0) scale(1)";
-                  el.style.borderColor = "rgba(255,255,255,0.08)";
-                  el.style.boxShadow = "0 10px 30px rgba(0,0,0,0.25)";
-                }}
-              >
-                {/* Glow effect */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    borderRadius: 20,
-                    background:
-                      "radial-gradient(circle at top left, rgba(249,115,22,0.15), transparent 60%)",
-                    opacity: 0,
-                    transition: "0.4s",
-                    pointerEvents: "none",
-                  }}
-                  className="card-glow"
-                />
+          {/* Rows */}
+          <div
+            className="tl-rows"
+            style={{ display: "flex", flexDirection: "column", gap: 52 }}
+          >
+            {experiences.map((exp, i) => {
+              const isLeft = exp.side === "left";
 
-                {/* Top row */}
+              const CardContent = () => (
                 <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: 14,
-                  }}
+                  className={`exp-card ${isLeft ? "exp-card-left" : "exp-card-right"}`}
                 >
+                  {/* Top row */}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "flex-start",
+                      marginBottom: 14,
+                      flexWrap: "wrap",
+                      gap: 8,
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 600,
+                        letterSpacing: "0.12em",
+                        color: "var(--brand)",
+                        margin: 0,
+                      }}
+                    >
+                      {exp.period}
+                    </p>
+                    <span
+                      style={{
+                        fontSize: 9,
+                        textTransform: "uppercase",
+                        border: "1px solid rgba(249,115,22,0.4)",
+                        padding: "4px 12px",
+                        borderRadius: 999,
+                        color: "var(--brand)",
+                        background: "rgba(249,115,22,0.08)",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {exp.type}
+                    </span>
+                  </div>
+
+                  {/* Role */}
+                  <h3
+                    className="exp-card-role"
+                    style={{
+                      fontSize: 19,
+                      fontWeight: 700,
+                      marginBottom: 4,
+                      color: "#fff",
+                      fontFamily: "Syne, sans-serif",
+                    }}
+                  >
+                    {exp.role}
+                  </h3>
+
+                  {/* Company */}
                   <p
                     style={{
-                      fontSize: 11,
-                      fontWeight: 600,
-                      letterSpacing: "0.12em",
-                      color: "var(--brand)",
-                      margin: 0,
+                      fontSize: 12,
+                      fontStyle: "italic",
+                      opacity: 0.7,
+                      marginBottom: 16,
+                      margin: "0 0 16px",
                     }}
                   >
-                    {exp.period}
+                    {exp.company}
                   </p>
 
-                  <span
-                    style={{
-                      fontSize: 9,
-                      textTransform: "uppercase",
-                      border: "1px solid rgba(249,115,22,0.4)",
-                      padding: "4px 12px",
-                      borderRadius: 999,
-                      color: "var(--brand)",
-                      background: "rgba(249,115,22,0.08)",
-                    }}
-                  >
-                    {exp.type}
-                  </span>
-                </div>
-
-                {/* Role */}
-                <h3
-                  style={{
-                    fontSize: 19,
-                    fontWeight: 700,
-                    marginBottom: 4,
-                    color: "#fff",
-                  }}
-                >
-                  {exp.role}
-                </h3>
-
-                {/* Company */}
-                <p
-                  style={{
-                    fontSize: 12,
-                    fontStyle: "italic",
-                    opacity: 0.7,
-                    marginBottom: 16,
-                  }}
-                >
-                  {exp.company}
-                </p>
-
-                <div
-                  style={{
-                    height: 1,
-                    background:
-                      "linear-gradient(to right, transparent, var(--border), transparent)",
-                    marginBottom: 16,
-                  }}
-                />
-
-                {/* Description */}
-                <p
-                  style={{
-                    fontSize: 13,
-                    lineHeight: 1.9,
-                    opacity: 0.85,
-                    marginBottom: 18,
-                  }}
-                >
-                  {exp.description}
-                </p>
-
-                {/* Tech stack */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  {exp.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      style={{
-                        fontSize: 10,
-                        padding: "6px 12px",
-                        borderRadius: 999,
-                        background: "rgba(255,255,255,0.05)",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        transition: "0.3s",
-                      }}
-                      onMouseEnter={(e) => {
-                        const el = e.currentTarget;
-                        el.style.background = "rgba(249,115,22,0.15)";
-                        el.style.borderColor = "var(--brand)";
-                      }}
-                      onMouseLeave={(e) => {
-                        const el = e.currentTarget;
-                        el.style.background = "rgba(255,255,255,0.05)";
-                        el.style.borderColor = "rgba(255,255,255,0.1)";
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            );
-
-            return (
-              <div
-                key={i}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 40px 1fr",
-                  alignItems: "center",
-                }}
-              >
-                {/* Left column */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    paddingRight: 28,
-                  }}
-                >
-                  {isLeft ? (
-                    <CardContent />
-                  ) : (
-                    <span
-                      style={{
-                        fontFamily: "Syne, sans-serif",
-                        fontSize: 11,
-                        letterSpacing: "0.12em",
-                        color: "var(--border-mid)",
-                        textAlign: "center",
-                      }}
-                    >
-                      {exp.period.split("—")[0].trim()}
-                    </span>
-                  )}
-                </div>
-
-                {/* Center dot */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    position: "relative",
-                    zIndex: 2,
-                  }}
-                >
                   <div
-                    className="tl-dot"
                     style={{
-                      width: 10,
-                      height: 10,
-                      borderRadius: "50%",
-                      background: "var(--brand)",
-                      boxShadow:
-                        "0 0 0 3px var(--brand-glow), 0 0 16px rgba(249,115,22,0.5)",
-                      flexShrink: 0,
+                      height: 1,
+                      background:
+                        "linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent)",
+                      marginBottom: 16,
                     }}
                   />
-                </div>
 
-                {/* Right column */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    paddingLeft: 28,
-                  }}
-                >
-                  {!isLeft ? (
-                    <CardContent />
-                  ) : (
-                    <span
-                      style={{
-                        fontFamily: "Syne, sans-serif",
-                        fontSize: 11,
-                        letterSpacing: "0.12em",
-                        color: "var(--border-mid)",
-                        textAlign: "center",
-                      }}
-                    >
-                      {exp.period.split("—")[0].trim()}
-                    </span>
-                  )}
+                  {/* Description */}
+                  <p
+                    style={{
+                      fontSize: 13,
+                      lineHeight: 1.9,
+                      opacity: 0.85,
+                      marginBottom: 18,
+                      margin: "0 0 18px",
+                    }}
+                  >
+                    {exp.description}
+                  </p>
+
+                  {/* Stack */}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                    {exp.stack.map((tech) => (
+                      <span
+                        key={tech}
+                        style={{
+                          fontSize: 10,
+                          padding: "6px 12px",
+                          borderRadius: 999,
+                          background: "rgba(255,255,255,0.05)",
+                          border: "1px solid rgba(255,255,255,0.1)",
+                          transition: "background 0.3s, border-color 0.3s",
+                          cursor: "default",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = "rgba(249,115,22,0.15)";
+                          e.currentTarget.style.borderColor = "var(--brand)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+                          e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+
+              return (
+                <div key={i} className="tl-row">
+                  {/* Left column */}
+                  <div className="tl-col-left">
+                    {isLeft ? (
+                      <CardContent />
+                    ) : (
+                      <span
+                        className="tl-date-label-only"
+                        style={{
+                          fontFamily: "Syne, sans-serif",
+                          fontSize: 11,
+                          letterSpacing: "0.12em",
+                          color: "rgba(255,255,255,0.2)",
+                        }}
+                      >
+                        {exp.period.split("—")[0].trim()}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Center dot */}
+                  <div className="tl-col-center">
+                    <div
+                      className="tl-dot"
+                      style={{
+                        width: 10,
+                        height: 10,
+                        borderRadius: "50%",
+                        background: "var(--brand)",
+                        boxShadow:
+                          "0 0 0 3px var(--brand-glow), 0 0 16px rgba(249,115,22,0.5)",
+                        flexShrink: 0,
+                      }}
+                    />
+                  </div>
+
+                  {/* Right column */}
+                  <div className="tl-col-right">
+                    {!isLeft ? (
+                      <CardContent />
+                    ) : (
+                      <span
+                        className="tl-date-label-only"
+                        style={{
+                          fontFamily: "Syne, sans-serif",
+                          fontSize: 11,
+                          letterSpacing: "0.12em",
+                          color: "rgba(255,255,255,0.2)",
+                        }}
+                      >
+                        {exp.period.split("—")[0].trim()}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
